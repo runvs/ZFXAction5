@@ -8,8 +8,6 @@ namespace JamTemplate
 
         #region Fields
 
-        Random _randomGenerator = new Random();
-
         #endregion Fields
 
         #region Methods

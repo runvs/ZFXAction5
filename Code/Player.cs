@@ -2,6 +2,7 @@
 using SFML.Window;
 using System;
 using System.Collections.Generic;
+using JamUtilities;
 
 namespace JamTemplate
 {
@@ -12,11 +13,9 @@ namespace JamTemplate
 
         public int playerNumber;
         public string PlayerName { get; private set; }
+        private SmartSprite _sprite;
 
         Dictionary<Keyboard.Key, Action> _actionMap;
-
-        private Texture playerTexture;
-        private Sprite playerSprite;
         private float movementTimer = 0.0f; // time between two successive movement commands
         private World myWorld;
 
@@ -57,12 +56,12 @@ namespace JamTemplate
 
         public void Update(float deltaT)
         {
-
+			_sprite.Update(deltaT);
         }
 
         public void Draw(SFML.Graphics.RenderWindow rw)
         {
-            rw.Draw(this.playerSprite);
+            _sprite.Draw(rw);
         }
 
         private void SetupActionMap()
@@ -84,7 +83,8 @@ namespace JamTemplate
 
         private void LoadGraphics()
         {
-            //SFML.Graphics.Image playerImage = new SFML.Graphics.Image("../gfx/player.png");
+
+            //_sprite = new SmartSprite("../GFX/player.png");
         }
 
         #endregion Methods

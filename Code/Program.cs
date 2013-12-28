@@ -15,15 +15,6 @@ namespace JamTemplate
             window.Close();
         }
 
-        static void OnKeyPress(object sender, SFML.Window.KeyEventArgs e)
-        {
-            if (e.Code == SFML.Window.Keyboard.Key.Escape)
-            {
-                SFML.Graphics.RenderWindow window = (SFML.Graphics.RenderWindow)sender;
-                window.Close();
-            }
-        }
-
         #endregion Event handlers
 
         static void Main(string[] args)
@@ -31,10 +22,9 @@ namespace JamTemplate
             var applicationWindow = new RenderWindow(new VideoMode(800, 600, 32), "$WindowTitle$");
 
             applicationWindow.SetFramerateLimit(60);
+            applicationWindow.SetVerticalSyncEnabled(true);
 
-            // fiddle with resizing the images later on
             applicationWindow.Closed += new EventHandler(OnClose);
-            applicationWindow.KeyPressed += new EventHandler<KeyEventArgs>(OnKeyPress);
 
             Game myGame = new Game();
 

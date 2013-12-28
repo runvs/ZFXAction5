@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using JamUtilities;
+using SFML.Graphics;
 using SFML.Window;
 
 namespace JamTemplate
@@ -8,7 +9,6 @@ namespace JamTemplate
 
         #region Fields
 
-        private Font _font;
         private State _gameState;
 
         World _myWorld;
@@ -23,7 +23,12 @@ namespace JamTemplate
         {
             // Predefine game state to menu
             _gameState = State.Menu;
-            _font = new Font("../GFX/font.ttf");
+
+            //TODO  Default values, replace with correct ones !
+            SmartSprite._scaleVector = new Vector2f(2.0f, 2.0f);
+            SmartText._font = new Font("../GFX/font.ttf");
+            SmartText._lineLengthInChars = 18;
+            SmartText._lineSpread = 1.2f;
         }
 
         public void GetInput()
@@ -110,95 +115,35 @@ namespace JamTemplate
 
         private void DrawMenu(RenderWindow rw)
         {
+            SmartText.DrawText("$GameTitle$", TextAlignment.MID, new Vector2f(400.0f, 150.0f), 1.5f, rw);
 
-            Text text = new Text();
-            text.DisplayedString = "$GameTitle$";
+            SmartText.DrawText("Start [Return]", TextAlignment.MID, new Vector2f(400.0f, 250.0f), rw);
+            SmartText.DrawText("W A S D & LShift", TextAlignment.MID, new Vector2f(530.0f, 340.0f), rw);
+            SmartText.DrawText("Arrows & RCtrl", TextAlignment.MID, new Vector2f(180.0f, 340.0f), rw);
 
-            text.Font = _font;
-            text.Scale = new Vector2f(2, 2);
-            text.Position = new Vector2f(400 - text.GetGlobalBounds().Width / 2.0f, 150 - text.GetGlobalBounds().Height / 2.0f);
-            rw.Draw(text);
-
-            text = new Text();
-            text.DisplayedString = "Start [Return]";
-            text.Font = _font;
-            text.Position = new Vector2f(400 - text.GetGlobalBounds().Width / 2.0f, 250 - text.GetGlobalBounds().Height / 2.0f);
-            rw.Draw(text);
-
-            text = new Text();
-            text.Font = _font;
-            text.DisplayedString = "W A S D & LShift";
-            text.Color = Color.White;
-            text.Scale = new Vector2f(0.75f, 0.75f);
-            text.Position = new Vector2f(530 - text.GetGlobalBounds().Width / 2.0f, 340 - text.GetGlobalBounds().Height / 2.0f);
-            rw.Draw(text);
-
-            text = new Text();
-            text.Font = _font;
-            text.DisplayedString = "Arrows & RCtrl";
-            text.Color = Color.White;
-            text.Scale = new Vector2f(0.75f, 0.75f);
-            text.Position = new Vector2f(180 - text.GetGlobalBounds().Width / 2.0f, 340 - text.GetGlobalBounds().Height / 2.0f);
-            rw.Draw(text);
-
-
-            text = new Text();
-            text.DisplayedString = "[C]redits";
-            text.Font = _font;
-            text.Scale = new Vector2f(0.75f, 0.75f);
-            text.Position = new Vector2f(30, 550 - text.GetGlobalBounds().Height / 2.0f);
-            rw.Draw(text);
+            SmartText.DrawText("[C]redits", TextAlignment.LEFT, new Vector2f(30.0f, 550.0f), rw);
 
         }
 
         private void DrawCredits(RenderWindow rw)
         {
 
+            SmartText.DrawText("$GameTitle$", TextAlignment.MID, new Vector2f(400.0f, 20.0f), 1.5f, rw);
 
-            Text CreditsText = new Text("$GameTitle$", _font);
-            CreditsText.Scale = new Vector2f(1.5f, 1.5f);
-            CreditsText.Position = new Vector2f(400 - (float)(CreditsText.GetGlobalBounds().Width / 2.0), 20);
-            rw.Draw(CreditsText);
+            SmartText.DrawText("A Game by", TextAlignment.MID, new Vector2f(400.0f, 100.0f), 0.75f, rw);
+            SmartText.DrawText("$DeveloperNames$", TextAlignment.MID, new Vector2f(400.0f, 135.0f), rw);
 
-            CreditsText = new Text("A Game by", _font);
-            CreditsText.Scale = new Vector2f(.75f, 0.75f);
-            CreditsText.Position = new Vector2f(400 - (float)(CreditsText.GetGlobalBounds().Width / 2.0), 100);
-            rw.Draw(CreditsText);
+            SmartText.DrawText("Visual Studio 2012 \t C#", TextAlignment.MID, new Vector2f(400, 170), 0.75f, rw);
+            SmartText.DrawText("aseprite \t SFML.NET 2.1", TextAlignment.MID, new Vector2f(400, 200), 0.75f, rw);
 
-            CreditsText = new Text("$DeveloperNames$", _font);
-            CreditsText.Scale = new Vector2f(1, 1);
-            CreditsText.Position = new Vector2f(400 - (float)(CreditsText.GetGlobalBounds().Width / 2.0), 135);
-            rw.Draw(CreditsText);
+            SmartText.DrawText("Thanks to", TextAlignment.MID, new Vector2f(400, 350), 0.75f, rw);
+            SmartText.DrawText("Families & Friends for their great support", TextAlignment.MID, new Vector2f(400, 375), 0.75f, rw);
 
-            CreditsText = new Text("Visual Studio 2012 \t C#", _font);
-            CreditsText.Scale = new Vector2f(0.75f, 0.75f);
-            CreditsText.Position = new Vector2f(400 - (float)(CreditsText.GetGlobalBounds().Width / 2.0), 170);
-            rw.Draw(CreditsText);
-
-            CreditsText = new Text("aseprite \t SFML.NET 2.1", _font);
-            CreditsText.Scale = new Vector2f(0.75f, 0.75f);
-            CreditsText.Position = new Vector2f(400 - (float)(CreditsText.GetGlobalBounds().Width / 2.0), 200);
-            rw.Draw(CreditsText);
-
-            CreditsText = new Text("Thanks to", _font);
-            CreditsText.Scale = new Vector2f(0.75f, 0.75f);
-            CreditsText.Position = new Vector2f(400 - (float)(CreditsText.GetGlobalBounds().Width / 2.0), 350);
-            rw.Draw(CreditsText);
-
-            CreditsText = new Text("Families & Friends for their great support", _font);
-            CreditsText.Scale = new Vector2f(0.75f, 0.75f);
-            CreditsText.Position = new Vector2f(400 - (float)(CreditsText.GetGlobalBounds().Width / 2.0), 375);
-            rw.Draw(CreditsText);
-
-            CreditsText = new Text("Created $Date$", _font);
-            CreditsText.Scale = new Vector2f(0.75f, 0.75f);
-            CreditsText.Position = new Vector2f(400 - (float)(CreditsText.GetGlobalBounds().Width / 2.0), 500);
-            rw.Draw(CreditsText);
-
+            SmartText.DrawText("Created $Date$", TextAlignment.MID, new Vector2f(400.0f, 500.0f), 0.75f, rw);
 
         }
 
-        private void ChangeGameState(State newState, float inputdeadTime = 0.75f)
+        private void ChangeGameState(State newState, float inputdeadTime = 0.5f)
         {
             this._gameState = newState;
             _timeTilNextInput = inputdeadTime;
