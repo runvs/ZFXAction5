@@ -1,4 +1,5 @@
-﻿using JamUtilities;
+﻿using System;
+using JamUtilities;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -26,9 +27,17 @@ namespace JamTemplate
 
             //TODO  Default values, replace with correct ones !
             SmartSprite._scaleVector = new Vector2f(2.0f, 2.0f);
-            SmartText._font = new Font("../GFX/font.ttf");
-            SmartText._lineLengthInChars = 18;
-            SmartText._lineSpread = 1.2f;
+            try
+            {
+                SmartText._font = new Font("../GFX/font.ttf");
+
+                SmartText._lineLengthInChars = 18;
+                SmartText._lineSpread = 1.2f;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public void GetInput()
@@ -70,10 +79,6 @@ namespace JamTemplate
             {
                 ChangeGameState(State.Menu, 1.0f);
             }
-            else
-            {
-                ChangeGameState(State.Menu, 0.5f);
-            }
         }
 
         public void Update(float deltaT)
@@ -83,11 +88,17 @@ namespace JamTemplate
                 _timeTilNextInput -= deltaT;
             }
 
+            CanBeQuit = false;
             if (_gameState == State.Game)
             {
                 _myWorld.Update(deltaT);
 
-                // TODO Game End Criteria
+               // Game End Condition
+
+            }
+            else if (_gameState == State.Menu && this._timeTilNextInput <= 0.0f)
+            {
+                CanBeQuit = true;
             }
 
         }
@@ -171,5 +182,7 @@ namespace JamTemplate
 
         #endregion Subclasses/Enums
 
+
+        public bool CanBeQuit { get; set; }
     }
 }

@@ -45,6 +45,13 @@ namespace JamTemplate
                 applicationWindow.DispatchEvents();
 
                 myGame.GetInput();
+                if (myGame.CanBeQuit)
+                {
+                    if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+                    {
+                        applicationWindow.Close();
+                    }
+                }
 
                 myGame.Update(time);
 
