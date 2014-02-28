@@ -1,5 +1,6 @@
 ﻿using System;
 using JamUtilities;
+using JamUtilities.Particles;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -27,6 +28,9 @@ namespace JamTemplate
 
             //TODO  Default values, replace with correct ones !
             SmartSprite._scaleVector = new Vector2f(2.0f, 2.0f);
+            ScreenEffects.Init(new Vector2u(800, 600));
+            ParticleManager.SetPositionRect(new FloatRect(-500, 0, 1400, 600));
+            //ParticleManager.Gravity = GameProperties.GravitationalAcceleration;
             try
             {
                 SmartText._font = new Font("../GFX/font.ttf");
@@ -75,7 +79,7 @@ namespace JamTemplate
 
         private void GetInputCreditsScore()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Escape) || Keyboard.IsKeyPressed(Keyboard.Key.Return) || Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
                 ChangeGameState(State.Menu, 1.0f);
             }
@@ -91,7 +95,7 @@ namespace JamTemplate
             CanBeQuit = false;
             if (_gameState == State.Game)
             {
-                _myWorld.Update(deltaT);
+                _myWorld.Update(Timing.Update(deltaT));
 
                // Game End Condition
 
@@ -133,7 +137,7 @@ namespace JamTemplate
             SmartText.DrawText("Arrows & RCtrl", TextAlignment.MID, new Vector2f(180.0f, 340.0f), rw);
 
             SmartText.DrawText("[C]redits", TextAlignment.LEFT, new Vector2f(30.0f, 550.0f), rw);
-
+            ScreenEffects.DrawFadeRadial(rw);
         }
 
         private void DrawCredits(RenderWindow rw)
@@ -146,12 +150,13 @@ namespace JamTemplate
 
             SmartText.DrawText("Visual Studio 2012 \t C#", TextAlignment.MID, new Vector2f(400, 170), 0.75f, rw);
             SmartText.DrawText("aseprite \t SFML.NET 2.1", TextAlignment.MID, new Vector2f(400, 200), 0.75f, rw);
+            SmartText.DrawText("Cubase 5 \t SFXR", TextAlignment.MID, new Vector2f(400, 230), 0.75f, rw);
 
             SmartText.DrawText("Thanks to", TextAlignment.MID, new Vector2f(400, 350), 0.75f, rw);
             SmartText.DrawText("Families & Friends for their great support", TextAlignment.MID, new Vector2f(400, 375), 0.75f, rw);
 
             SmartText.DrawText("Created $Date$", TextAlignment.MID, new Vector2f(400.0f, 500.0f), 0.75f, rw);
-
+            ScreenEffects.DrawFadeRadial(rw);
         }
 
         private void ChangeGameState(State newState, float inputdeadTime = 0.5f)

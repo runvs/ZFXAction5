@@ -1,5 +1,7 @@
 ﻿using SFML.Graphics;
 using System;
+using JamUtilities;
+using JamUtilities.Particles;
 
 namespace JamTemplate
 {
@@ -24,12 +26,17 @@ namespace JamTemplate
 
         public void Update(float deltaT)
         {
-
+            ScreenEffects.Update(deltaT);
+            SpriteTrail.Update(deltaT);
+            ParticleManager.Update(deltaT);
         }
 
         public void Draw(RenderWindow rw)
         {
+            ParticleManager.Draw(rw);
 
+            ScreenEffects.DrawFadeRadial(rw);
+            ScreenEffects.Draw(rw);
         }
 
         private void InitGame()
