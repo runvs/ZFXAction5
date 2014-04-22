@@ -1,6 +1,7 @@
 ﻿using System;
 using JamUtilities;
 using JamUtilities.Particles;
+using JamUtilities.ScreenEffects;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -137,7 +138,7 @@ namespace JamTemplate
             SmartText.DrawText("Arrows & RCtrl", TextAlignment.MID, new Vector2f(180.0f, 340.0f), rw);
 
             SmartText.DrawText("[C]redits", TextAlignment.LEFT, new Vector2f(30.0f, 550.0f), rw);
-            ScreenEffects.DrawFadeRadial(rw);
+            ScreenEffects.GetStaticEffect("vignette").Draw(rw);
         }
 
         private void DrawCredits(RenderWindow rw)
@@ -156,7 +157,7 @@ namespace JamTemplate
             SmartText.DrawText("Families & Friends for their great support", TextAlignment.MID, new Vector2f(400, 375), 0.75f, rw);
 
             SmartText.DrawText("Created $Date$", TextAlignment.MID, new Vector2f(400.0f, 500.0f), 0.75f, rw);
-            ScreenEffects.DrawFadeRadial(rw);
+            ScreenEffects.GetStaticEffect("vignette").Draw(rw);
         }
 
         private void ChangeGameState(State newState, float inputdeadTime = 0.5f)

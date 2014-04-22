@@ -2,6 +2,7 @@
 using System;
 using JamUtilities;
 using JamUtilities.Particles;
+using JamUtilities.ScreenEffects;
 
 namespace JamTemplate
 {
@@ -21,21 +22,28 @@ namespace JamTemplate
 
         public void GetInput()
         {
+            if (SFML.Window.Keyboard.IsKeyPressed(SFML.Window.Keyboard.Key.C))
+            {
+                //ScreenEffects.ScreenFlash(SFML.Graphics.Color.Black, 4.0f);
+            }
 
         }
 
-        public void Update(float deltaT)
+        public void Update(TimeObject timeObject)
         {
-            ScreenEffects.Update(deltaT);
-            SpriteTrail.Update(deltaT);
-            ParticleManager.Update(deltaT);
+            ScreenEffects.Update(timeObject);
+            SpriteTrail.Update(timeObject);
+            ParticleManager.Update(timeObject);
         }
 
         public void Draw(RenderWindow rw)
         {
+            rw.Clear(SFML.Graphics.Color.Blue);
             ParticleManager.Draw(rw);
 
-            ScreenEffects.DrawFadeRadial(rw);
+
+
+            ScreenEffects.GetStaticEffect("vignette").Draw(rw);
             ScreenEffects.Draw(rw);
         }
 
