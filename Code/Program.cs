@@ -28,7 +28,7 @@ namespace JamTemplate
 
             Game myGame = new Game();
 
-
+            JamUtilities.Mouse.Window = applicationWindow;
 
             int startTime = Environment.TickCount;
             int endTime = startTime;
@@ -52,6 +52,8 @@ namespace JamTemplate
                         applicationWindow.Close();
                     }
                 }
+
+                JamUtilities.Mouse.Update();
 
                 myGame.Update(time);
 

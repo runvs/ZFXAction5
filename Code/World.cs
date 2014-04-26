@@ -6,7 +6,7 @@ using JamUtilities.ScreenEffects;
 
 namespace JamTemplate
 {
-    class World
+    public class World
     {
 
         #region Fields
