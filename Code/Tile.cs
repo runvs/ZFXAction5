@@ -23,6 +23,6 @@ namespace JamTemplate
 
     public enum TileType
     {
-        FLOOR, PATH, WALL
+        FLOOR, WALL, BUILDZONE
     }
 }
