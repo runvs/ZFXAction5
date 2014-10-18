@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
-using SFML.Graphics;
+﻿using System;
+using System.Collections.Generic;
 using JamUtilities;
 using JamUtilities.Particles;
 using JamUtilities.ScreenEffects;
+using SFML.Graphics;
 using SFML.Window;
+using Mouse = SFML.Window.Mouse;
 
 // ReSharper disable once SuggestUseVarKeywordEvident
 
@@ -17,6 +19,8 @@ namespace JamTemplate
         private List<Prisoner> _prisonersList;
         private Level _level;
 
+        private bool _isMouseDown;
+
         #endregion Fields
 
         #region Methods
@@ -28,7 +32,7 @@ namespace JamTemplate
 
         public void GetInput()
         {
-            if (SFML.Window.Keyboard.IsKeyPressed(SFML.Window.Keyboard.Key.C))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.C))
             {
                 //ScreenEffects.ScreenFlash(SFML.Graphics.Color.Black, 4.0f);
             }
@@ -47,6 +51,18 @@ namespace JamTemplate
             else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
             {
                 Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(0, 10.0f);
+            }
+
+            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                _isMouseDown = true;
+            }
+            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && _isMouseDown)
+            {
+                // Mouse up
+                _isMouseDown = false;
+
+                Console.WriteLine("Mouse up");
             }
         }
 
@@ -73,7 +89,7 @@ namespace JamTemplate
 
         public void Draw(RenderWindow rw)
         {
-            rw.Clear(SFML.Graphics.Color.Blue);
+            rw.Clear(Color.Blue);
 
 
             _level.Draw(rw);
