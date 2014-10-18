@@ -62,7 +62,15 @@ namespace JamTemplate
                 // Mouse up
                 _isMouseDown = false;
 
-                Console.WriteLine("Mouse up");
+                var mousePos = new Vector2f(
+                    JamUtilities.Mouse.MousePositionInWindow.X,
+                    JamUtilities.Mouse.MousePositionInWindow.Y
+                );
+
+                mousePos += Camera.CameraPosition;
+                mousePos /= GameProperties.TileSizeInPixel;
+
+                Console.WriteLine(_level.GetTileAt(mousePos).Type);
             }
         }
 

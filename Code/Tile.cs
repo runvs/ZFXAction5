@@ -7,6 +7,12 @@ namespace JamTemplate
 {
     public class Tile : IGameObject
     {
+        private TileType type;
+        public Vector2i Position { get; set; }
+
+        private SmartSprite _sprite;
+
+
         public TileType Type
         {
             get { return type; }
@@ -23,16 +29,15 @@ namespace JamTemplate
             {
                 _sprite = new SmartSprite("../GFX/floor.png");
             }
+            else if (type == TileType.BUILDZONE)
+            {
+                _sprite = new SmartSprite("../GFX/buildzone.png");
+            }
             else
             {
                 throw new Exception("Tile Type not known");
             }
         }
-
-        private TileType type;
-        public Vector2i Position { get; set; }
-
-        private SmartSprite _sprite;
 
         public bool IsDead() { return false; }
 
@@ -48,7 +53,7 @@ namespace JamTemplate
         public void Draw(RenderWindow rw)
         {
             _sprite.Position = GetOnScreenPosition();
-            _sprite.Draw((rw));
+            _sprite.Draw(rw);
         }
     }
 

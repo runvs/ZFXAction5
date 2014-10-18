@@ -34,7 +34,14 @@ namespace JamTemplate
             {
                 for (int j = 0; j != GameProperties.LevelSize; ++j)
                 {
-                    level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.FLOOR };
+                    if (i == 5 && j == 5)
+                    {
+                        level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.BUILDZONE };
+                    }
+                    else
+                    {
+                        level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.FLOOR };
+                    }
                 }
             }
 

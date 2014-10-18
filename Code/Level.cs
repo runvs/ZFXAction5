@@ -26,6 +26,11 @@ namespace JamTemplate
             return GetTileAt(position.X, position.Y);
         }
 
+        public Tile GetTileAt(Vector2f position)
+        {
+            return GetTileAt((int)position.X, (int)position.Y);
+        }
+
         public bool IsDead()
         {
             throw new System.NotImplementedException();
