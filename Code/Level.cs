@@ -13,6 +13,7 @@ namespace JamTemplate
         public Level()
         {
             LevelTiles = new Tile[GameProperties.LevelSize, GameProperties.LevelSize];
+            Spawner = new List<PrisonerSpawner>();
         }
 
         public Tile GetTileAt(int x, int y)
