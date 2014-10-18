@@ -18,7 +18,5 @@ namespace JamTemplate
         {
             get { return 64; }
         }
-
-
     }
 }

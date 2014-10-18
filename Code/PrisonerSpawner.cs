@@ -23,7 +23,7 @@ namespace JamTemplate
         {
             _world = world;
             SpawnPositionInTiles = tilePosition;
-            spawnTimer = spawnTimerMax = timer;
+            spawnTimerMax = timer;
 
         }
 
@@ -59,6 +59,7 @@ namespace JamTemplate
             prisoner.PositionInTiles = SpawnPositionInTiles;
             prisoner.SetPath(_path);
 
+            _world.Spawn(prisoner);
         }
 
         public void Draw(SFML.Graphics.RenderWindow rw)

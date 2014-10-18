@@ -15,6 +15,7 @@ namespace JamTemplate
         #region Fields
 
         private List<Prisoner> _prisonersList;
+        private Level _level;
 
         #endregion Fields
 
@@ -40,6 +41,8 @@ namespace JamTemplate
             ParticleManager.Update(timeObject);
 
 
+            _level.Update(timeObject);
+
             List<Prisoner> newPrisonerList = new List<Prisoner>();
             foreach (var p in _prisonersList)
             {
@@ -55,28 +58,32 @@ namespace JamTemplate
         public void Draw(RenderWindow rw)
         {
             rw.Clear(SFML.Graphics.Color.Blue);
-            ParticleManager.Draw(rw);
-            ScreenEffects.GetStaticEffect("vignette").Draw(rw);
-            ScreenEffects.Draw(rw);
+
+
+            _level.Draw(rw);
 
             foreach (var p in _prisonersList)
             {
                 p.Draw(rw);
             }
+
+            ParticleManager.Draw(rw);
+            ScreenEffects.GetStaticEffect("vignette").Draw(rw);
+            ScreenEffects.Draw(rw);
         }
 
         private void InitGame()
         {
             _prisonersList = new List<Prisoner>();
-            Prisoner p = new Prisoner();
-            p.PositionInTiles = new Vector2i(5, 5);
-            List<eDirection> path = new List<eDirection>();
-
-            p.SetPath(path);
-            _prisonersList.Add(p);
+            _level = LevelLoader.GetLevel(1, this);
         }
 
         #endregion Methods
 
+
+        public void Spawn(Prisoner prisoner)
+        {
+            _prisonersList.Add(prisoner);
+        }
     }
 }

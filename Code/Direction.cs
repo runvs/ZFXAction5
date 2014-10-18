@@ -29,11 +29,11 @@ namespace JamTemplate
             }
             else if (dir == eDirection.NORTH)
             {
-                ret = new Vector2i(0, 1);
+                ret = new Vector2i(0, -1);
             }
             else if (dir == eDirection.SOUTH)
             {
-                ret = new Vector2i(0, -1);
+                ret = new Vector2i(0, 1);
             }
 
             return ret;
@@ -53,11 +53,11 @@ namespace JamTemplate
             }
             else if (dir == eDirection.NORTH)
             {
-                ret = new Vector2f(0, 1);
+                ret = new Vector2f(0, -1);
             }
             else if (dir == eDirection.SOUTH)
             {
-                ret = new Vector2f(0, -1);
+                ret = new Vector2f(0, 1);
             }
 
             return ret;

@@ -44,7 +44,10 @@ namespace JamTemplate
         public void SetPath(List<eDirection> path)
         {
             _path = path;
-            currentMovementDirection = _path[0];
+            if (_path.Count > 0)
+            {
+                currentMovementDirection = _path[0];
+            }
         }
 
 
@@ -54,6 +57,7 @@ namespace JamTemplate
             CheckIsDead();
 
             _sprite.Flash(Color.Red, 0.5f);
+            _sprite.Shake(0.5f, 0.05f, 2.0f);
         }
 
         private void CheckIsDead()
@@ -83,7 +87,7 @@ namespace JamTemplate
 
         private void DoMovement(TimeObject timeObject)
         {
-            Console.WriteLine(_path.Count);
+            //Console.WriteLine(_path.Count);
             movementTimer -= timeObject.ElapsedGameTime;
             if (movementTimer <= 0)
             {
