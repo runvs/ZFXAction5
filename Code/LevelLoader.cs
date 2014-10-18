@@ -24,17 +24,7 @@ namespace JamTemplate
             }
         }
 
-        private static Level GetLevel5()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static Level GetLevel4()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static Level GetLevel3()
+        private static Level GetLevel1()
         {
             throw new NotImplementedException();
         }
@@ -44,7 +34,17 @@ namespace JamTemplate
             throw new NotImplementedException();
         }
 
-        private static Level GetLevel1()
+        private static Level GetLevel3()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static Level GetLevel4()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static Level GetLevel5()
         {
             throw new NotImplementedException();
         }
