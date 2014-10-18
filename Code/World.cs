@@ -71,11 +71,7 @@ namespace JamTemplate
             Prisoner p = new Prisoner();
             p.PositionInTiles = new Vector2i(5, 5);
             List<eDirection> path = new List<eDirection>();
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.NORTH);
-            path.Add(eDirection.EAST);
+
             p.SetPath(path);
             _prisonersList.Add(p);
         }
