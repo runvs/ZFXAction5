@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.ConstrainedExecution;
+using JamTemplate;
 using JamUtilities;
 using SFML.Graphics;
 using SFML.Window;
 
 namespace JamTemplate
 {
+
+
     public class Prisoner : IGameObject
     {
 
@@ -43,7 +47,12 @@ namespace JamTemplate
 
         public void SetPath(List<eDirection> path)
         {
-            _path = path;
+            _path = new List<eDirection>();
+            foreach (var dir in path)
+            {
+                _path.Add(dir);
+            }
+
             if (_path.Count > 0)
             {
                 currentMovementDirection = _path[0];

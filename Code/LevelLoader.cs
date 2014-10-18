@@ -30,6 +30,16 @@ namespace JamTemplate
         {
             var level = new Level();
 
+            for (int i = 0; i != GameProperties.LevelSize; ++i)
+            {
+                for (int j = 0; j != GameProperties.LevelSize; ++j)
+                {
+                    level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.FLOOR };
+                }
+            }
+
+
+
             var path = new List<eDirection>();
 
             path.Add(eDirection.EAST);
