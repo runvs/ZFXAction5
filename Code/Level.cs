@@ -1,24 +1,51 @@
-﻿using SFML.Window;
+﻿using System.Collections.Generic;
+using JamUtilities;
+using SFML.Graphics;
+using SFML.Window;
 
 namespace JamTemplate
 {
-    public class Level
+    public class Level : IGameObject
     {
-        Tile[,] _level;
+        public Tile[,] LevelTiles { get; set; }
+        public List<PrisonerSpawner> Spawner { get; set; }
 
         public Level()
         {
-            _level = new Tile[GameProperties.LevelSize, GameProperties.LevelSize];
+            LevelTiles = new Tile[GameProperties.LevelSize, GameProperties.LevelSize];
         }
 
         public Tile GetTileAt(int x, int y)
         {
-            return _level[x, y];
+            return LevelTiles[x, y];
         }
 
         public Tile GetTileAt(Vector2i position)
         {
             return GetTileAt(position.X, position.Y);
+        }
+
+        public bool IsDead()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void GetInput()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Update(TimeObject timeObject)
+        {
+            foreach (var spawner in Spawner)
+            {
+                spawner.Update(timeObject);
+            }
+        }
+
+        public void Draw(RenderWindow rw)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
