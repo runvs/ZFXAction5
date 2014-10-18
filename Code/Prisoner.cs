@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using JamUtilities;
 using SFML.Graphics;
 using SFML.Window;
@@ -36,11 +38,13 @@ namespace JamTemplate
             Health = HealthMax = GameProperties.PrisonerHealtDefault;
             dead = false;
             finished = false;
+            movementTimer = GameProperties.PrisonerMovementTimer;
         }
 
         public void SetPath(List<eDirection> path)
         {
             _path = path;
+            currentMovementDirection = _path[0];
         }
 
 
@@ -79,6 +83,7 @@ namespace JamTemplate
 
         private void DoMovement(TimeObject timeObject)
         {
+            Console.WriteLine(_path.Count);
             movementTimer -= timeObject.ElapsedGameTime;
             if (movementTimer <= 0)
             {
@@ -90,20 +95,27 @@ namespace JamTemplate
         private void MoveForward()
         {
             PositionInTiles += Direction.GetDirectionFromEnum(currentMovementDirection);
-            if (_path.Count >= 0)
+            if (_path.Count > 0)
             {
                 _path.RemoveAt(0);
+
+            }
+            if (_path.Count > 0)
+            {
                 currentMovementDirection = _path[0];
             }
             else
             {
                 finished = true;
+                Console.WriteLine("Finish");
+                dead = true;
             }
 
         }
 
         public Vector2f GetOnScreenPosition()
         {
+            AbsolutePositionInPixel = GameProperties.TileSizeInPixel * new Vector2f(PositionInTiles.X, PositionInTiles.Y);
             return AbsolutePositionInPixel - Camera.CameraPosition;
         }
 

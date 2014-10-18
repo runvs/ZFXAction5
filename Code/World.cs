@@ -3,6 +3,7 @@ using SFML.Graphics;
 using JamUtilities;
 using JamUtilities.Particles;
 using JamUtilities.ScreenEffects;
+using SFML.Window;
 
 // ReSharper disable once SuggestUseVarKeywordEvident
 
@@ -30,7 +31,6 @@ namespace JamTemplate
             {
                 //ScreenEffects.ScreenFlash(SFML.Graphics.Color.Black, 4.0f);
             }
-
         }
 
         public void Update(TimeObject timeObject)
@@ -63,13 +63,21 @@ namespace JamTemplate
             {
                 p.Draw(rw);
             }
-
         }
 
         private void InitGame()
         {
             _prisonersList = new List<Prisoner>();
-
+            Prisoner p = new Prisoner();
+            p.PositionInTiles = new Vector2i(5, 5);
+            List<eDirection> path = new List<eDirection>();
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.NORTH);
+            path.Add(eDirection.EAST);
+            p.SetPath(path);
+            _prisonersList.Add(p);
         }
 
         #endregion Methods

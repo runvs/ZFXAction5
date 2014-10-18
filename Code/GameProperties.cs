@@ -11,7 +11,14 @@ namespace JamTemplate
 
         public static float PrisonerMovementTimer
         {
-            get { return 0.5f; }
+            get { return 1.5f; }
         }
+
+        public static float TileSizeInPixel
+        {
+            get { return 64; }
+        }
+
+
     }
 }
