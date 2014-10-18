@@ -34,6 +34,7 @@ namespace JamTemplate
 
         private eDirection currentMovementDirection;
 
+        private SFML.Graphics.RectangleShape _healthShape;
 
 
         public Prisoner()
@@ -43,6 +44,12 @@ namespace JamTemplate
             dead = false;
             finished = false;
             movementTimer = GameProperties.PrisonerMovementTimer;
+
+            _healthShape = new RectangleShape(new Vector2f(60, 10));
+
+            _healthShape.FillColor = Color.Red;
+            _healthShape.Origin = new Vector2f(-2, 10);
+
         }
 
         public void SetPath(List<eDirection> path)
@@ -90,6 +97,8 @@ namespace JamTemplate
 
         public void Update(TimeObject timeObject)
         {
+            _healthShape.Scale = new Vector2f(Health / HealthMax, 1);
+            _healthShape.Position = AbsolutePositionInPixel + new Vector2f(0, -2);
             // movement
             DoMovement(timeObject);
         }
@@ -123,7 +132,6 @@ namespace JamTemplate
                 Console.WriteLine("Finish");
                 dead = true;
             }
-
         }
 
         public Vector2f GetOnScreenPosition()
@@ -136,11 +144,8 @@ namespace JamTemplate
         {
             _sprite.Position = GetOnScreenPosition();
             _sprite.Draw((rw));
+            rw.Draw(_healthShape);
         }
-
-
-
-
 
     }
 }

@@ -19,6 +19,10 @@ namespace JamTemplate
         private List<Prisoner> _prisonersList;
         private Level _level;
 
+        private int Lives { get; set; }
+        public int Kills { get; set; }
+        public bool Dead { get; private set; }
+
         private bool _isMouseDown;
 
         #endregion Fields
@@ -91,8 +95,28 @@ namespace JamTemplate
                 {
                     newPrisonerList.Add((p));
                 }
+                else
+                {
+                    if (p.finished)
+                    {
+                        Lives--;
+                        CheckPlayerDead();
+                    }
+                    else
+                    {
+                        Kills += 1;
+                    }
+                }
             }
             _prisonersList = newPrisonerList;
+        }
+
+        private void CheckPlayerDead()
+        {
+            if (Lives <= 0)
+            {
+                Dead = true;
+            }
         }
 
         public void Draw(RenderWindow rw)
@@ -107,6 +131,9 @@ namespace JamTemplate
                 p.Draw(rw);
             }
 
+            SmartText.DrawText("Lives: " + Lives, TextAlignment.LEFT, new Vector2f(10, 10), rw);
+
+
             ParticleManager.Draw(rw);
             ScreenEffects.GetStaticEffect("vignette").Draw(rw);
             ScreenEffects.Draw(rw);
@@ -116,6 +143,8 @@ namespace JamTemplate
         {
             _prisonersList = new List<Prisoner>();
             _level = LevelLoader.GetLevel(1, this);
+            Lives = GameProperties.PlayerInitialLives;
+            Dead = false;
         }
 
         #endregion Methods
@@ -125,5 +154,9 @@ namespace JamTemplate
         {
             _prisonersList.Add(prisoner);
         }
+
+
+
+
     }
 }

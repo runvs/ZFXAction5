@@ -32,7 +32,7 @@ namespace JamTemplate
             ScreenEffects.Init(new Vector2u(800, 600));
             ParticleManager.SetPositionRect(new FloatRect(-500, 0, 1400, 600));
             Camera.MinPosition = new Vector2f(0, 0);
-            Camera.MaxPosition = new Vector2f(100, 100);
+            Camera.MaxPosition = GameProperties.TileSizeInPixel * GameProperties.LevelSize * new Vector2f(1, 1) - new Vector2f(800, 600);
             //ParticleManager.Gravity = GameProperties.GravitationalAcceleration;
             try
             {
@@ -100,14 +100,16 @@ namespace JamTemplate
             {
                 _myWorld.Update(Timing.Update(deltaT));
 
-                // Game End Condition
-
+                if (_myWorld.Dead)
+                {
+                    _gameStats = new Score(_myWorld);
+                    ChangeGameState(State.Score, 0.5f);
+                }
             }
             else if (_gameState == State.Menu && this._timeTilNextInput <= 0.0f)
             {
                 CanBeQuit = true;
             }
-
         }
 
         public void Draw(RenderWindow rw)

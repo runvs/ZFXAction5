@@ -18,5 +18,10 @@ namespace JamTemplate
         {
             get { return 64; }
         }
+
+        public static int PlayerInitialLives
+        {
+            get { return 10; }
+        }
     }
 }

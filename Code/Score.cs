@@ -7,12 +7,15 @@ namespace JamTemplate
 
         #region Fields
 
+        private int Kills;
+
         #endregion Fields
 
         #region Methods
 
-        public Score()
+        public Score(World world)
         {
+            Kills = world.Kills;
         }
 
         public void Draw(RenderWindow rw)
