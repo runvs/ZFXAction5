@@ -47,20 +47,28 @@ namespace JamTemplate
             if (newCamPos.X <= MinPosition.X)
             {
                 newCamPos.X = MinPosition.X;
+                ShouldBePosition = new Vector2f(MinPosition.X, ShouldBePosition.Y);
+                CameraVelocity = new Vector2f(0, CameraVelocity.Y);
             }
             if (newCamPos.Y <= MinPosition.Y)
             {
                 newCamPos.Y = MinPosition.Y;
+                ShouldBePosition = new Vector2f(ShouldBePosition.X, MinPosition.Y);
+                CameraVelocity = new Vector2f(CameraVelocity.X, 0);
             }
 
             if (newCamPos.X >= MaxPosition.X)
             {
                 newCamPos.X = MaxPosition.X;
+                ShouldBePosition = new Vector2f(MaxPosition.X, ShouldBePosition.Y);
+                CameraVelocity = new Vector2f(0, CameraVelocity.Y);
             }
 
             if (newCamPos.Y >= MaxPosition.Y)
             {
+                ShouldBePosition = new Vector2f(ShouldBePosition.X, MaxPosition.Y);
                 newCamPos.Y = MaxPosition.Y;
+
             }
 
             CameraPosition = newCamPos;

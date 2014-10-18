@@ -32,6 +32,22 @@ namespace JamTemplate
             {
                 //ScreenEffects.ScreenFlash(SFML.Graphics.Color.Black, 4.0f);
             }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+            {
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(-10.0f, 0);
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+            {
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(10.0f, 0);
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            {
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(0, -10.0f);
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+            {
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(0, 10.0f);
+            }
         }
 
         public void Update(TimeObject timeObject)
@@ -39,7 +55,7 @@ namespace JamTemplate
             ScreenEffects.Update(timeObject);
             SpriteTrail.Update(timeObject);
             ParticleManager.Update(timeObject);
-
+            Camera.DoCameraMovement(timeObject);
 
             _level.Update(timeObject);
 

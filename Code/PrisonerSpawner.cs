@@ -13,9 +13,11 @@ namespace JamTemplate
 
         private float spawnTimer;
         private float spawnTimerMax;
+        private float spawnTimerOffset;
         private World _world;
 
         private List<eDirection> _path;
+
 
 
 
@@ -32,6 +34,11 @@ namespace JamTemplate
             _path = path;
         }
 
+        public void SetOffset(float off)
+        {
+            spawnTimerOffset = off;
+        }
+
         public bool IsDead()
         {
             // nothing to do here
@@ -45,11 +52,19 @@ namespace JamTemplate
 
         public void Update(TimeObject timeObject)
         {
-            spawnTimer -= timeObject.ElapsedGameTime;
-            if (spawnTimer <= 0)
+            if (spawnTimerOffset < 0)
             {
-                spawnTimer = spawnTimerMax;
-                Spawn();
+                spawnTimer -= timeObject.ElapsedGameTime;
+                if (spawnTimer <= 0)
+                {
+                    spawnTimer = spawnTimerMax;
+                    Spawn();
+                }
+            }
+            else
+            {
+                spawnTimerOffset -= timeObject.ElapsedGameTime;
+
             }
         }
 

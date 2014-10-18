@@ -31,16 +31,84 @@ namespace JamTemplate
             var level = new Level();
 
             var path = new List<eDirection>();
+
             path.Add(eDirection.EAST);
             path.Add(eDirection.EAST);
             path.Add(eDirection.EAST);
-            path.Add(eDirection.NORTH);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
+            path.Add(eDirection.EAST);
             path.Add(eDirection.EAST);
 
-            var spawner = new PrisonerSpawner(world, new Vector2i(0, 0), 10f);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+            path.Add(eDirection.SOUTH);
+
+            var spawner = new PrisonerSpawner(world, new Vector2i(3, 5), 5f);
             spawner.SetPath(path);
-
             level.Spawner.Add(spawner);
+
+
+
+            var path2 = new List<eDirection>();
+
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+            path2.Add(eDirection.SOUTH);
+
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+            path2.Add(eDirection.EAST);
+
+
+
+            var spawner2 = new PrisonerSpawner(world, new Vector2i(3, 5), 5f);
+            spawner2.SetPath(path2);
+            spawner2.SetOffset(2.5f);
+            level.Spawner.Add(spawner2);
+
 
             return level;
         }

@@ -48,8 +48,10 @@ namespace JamTemplate
         {
             foreach (var levelTile in LevelTiles)
             {
-
-
+                if (levelTile != null)
+                {
+                    levelTile.Draw(rw);
+                }
             }
         }
     }
