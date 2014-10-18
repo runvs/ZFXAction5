@@ -42,19 +42,19 @@ namespace JamTemplate
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
             {
-                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(-10.0f, 0);
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(-5.0f, 0);
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
             {
-                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(10.0f, 0);
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(5.0f, 0);
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
             {
-                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(0, -10.0f);
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(0, -5.0f);
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
             {
-                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(0, 10.0f);
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(0, 5.0f);
             }
 
             if (Mouse.IsButtonPressed(Mouse.Button.Left))

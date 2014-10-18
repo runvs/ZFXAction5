@@ -98,7 +98,7 @@ namespace JamTemplate
         public void Update(TimeObject timeObject)
         {
             _healthShape.Scale = new Vector2f(Health / HealthMax, 1);
-            _healthShape.Position = AbsolutePositionInPixel + new Vector2f(0, -2);
+            _healthShape.Position = GetOnScreenPosition() + new Vector2f(0, -2);
             // movement
             DoMovement(timeObject);
         }

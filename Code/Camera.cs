@@ -24,6 +24,15 @@ namespace JamTemplate
             float distanceYSquared = (float)(Math.Sign(CameraPosition.Y - playerPosInPixels.Y)) * (CameraPosition.Y - playerPosInPixels.Y) * (CameraPosition.Y - playerPosInPixels.Y);
 
             Vector2f newCamVelocity = 0.125f * new Vector2f(-distanceXSquared, -distanceYSquared);
+            float camSpeed = (float)Math.Sqrt(CameraVelocity.X * CameraVelocity.X + CameraVelocity.Y * CameraVelocity.Y);
+            if (camSpeed <= 10)
+            {
+                newCamVelocity *= 0.1f;
+            }
+            if (camSpeed <= 1)
+            {
+                newCamVelocity *= 0.1f;
+            }
             if (newCamVelocity.X >= CameraMaxVelocity)
             {
                 newCamVelocity.X = CameraMaxVelocity;
@@ -42,6 +51,8 @@ namespace JamTemplate
             }
 
             CameraVelocity = newCamVelocity;
+            camSpeed = (float)Math.Sqrt(CameraVelocity.X * CameraVelocity.X + CameraVelocity.Y * CameraVelocity.Y);
+            Console.WriteLine(camSpeed);
 
             Vector2f newCamPos = CameraPosition + CameraVelocity * deltaT.ElapsedRealTime;
             if (newCamPos.X <= MinPosition.X)

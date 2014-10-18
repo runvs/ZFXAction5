@@ -34,7 +34,7 @@ namespace JamTemplate
             {
                 for (int j = 0; j != GameProperties.LevelSize; ++j)
                 {
-                    if (i == 5 && j == 5)
+                    if (j == 4 && i == 5 || j == 4 && i == 8)
                     {
                         level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.BUILDZONE };
                     }
