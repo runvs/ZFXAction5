@@ -36,11 +36,11 @@ namespace JamTemplate
                 {
                     if (j == 4 && i == 5 || j == 4 && i == 8)
                     {
-                        level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.BUILDZONE };
+                        level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Buildzone };
                     }
                     else
                     {
-                        level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.FLOOR };
+                        level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Floor };
                     }
                 }
             }

@@ -65,6 +65,7 @@
     <Compile Include="Score.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="Tower.cs" />
+    <Compile Include="TowerBuilder.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>

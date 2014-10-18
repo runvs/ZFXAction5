@@ -74,7 +74,17 @@ namespace JamTemplate
                 mousePos += Camera.CameraPosition;
                 mousePos /= GameProperties.TileSizeInPixel;
 
-                Console.WriteLine(_level.GetTileAt(mousePos).Type);
+                var tile = _level.GetTileAt(mousePos);
+                Console.WriteLine(tile.Type);
+
+                if (tile.Type == TileType.Buildzone)
+                {
+                    TowerBuilder.ShowBuildMenu(tile);
+                }
+                else
+                {
+                    TowerBuilder.HideBuildMenu();
+                }
             }
         }
 
@@ -130,6 +140,8 @@ namespace JamTemplate
             {
                 p.Draw(rw);
             }
+
+            TowerBuilder.Draw(rw);
 
             SmartText.DrawText("Lives: " + Lives, TextAlignment.LEFT, new Vector2f(10, 10), rw);
 

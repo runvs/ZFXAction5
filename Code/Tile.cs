@@ -7,7 +7,7 @@ namespace JamTemplate
 {
     public class Tile : IGameObject
     {
-        private TileType type;
+        private TileType _type;
         public Vector2i Position { get; set; }
 
         private SmartSprite _sprite;
@@ -15,21 +15,21 @@ namespace JamTemplate
 
         public TileType Type
         {
-            get { return type; }
+            get { return _type; }
             set
             {
-                type = value;
+                _type = value;
                 LoadImage();
             }
         }
 
         private void LoadImage()
         {
-            if (type == TileType.FLOOR)
+            if (_type == TileType.Floor)
             {
                 _sprite = new SmartSprite("../GFX/floor.png");
             }
-            else if (type == TileType.BUILDZONE)
+            else if (_type == TileType.Buildzone)
             {
                 _sprite = new SmartSprite("../GFX/buildzone.png");
             }
@@ -59,6 +59,6 @@ namespace JamTemplate
 
     public enum TileType
     {
-        FLOOR, WALL, BUILDZONE
+        Floor, Wall, Buildzone
     }
 }
