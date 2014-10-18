@@ -31,6 +31,8 @@ namespace JamTemplate
             SmartSprite._scaleVector = new Vector2f(2.0f, 2.0f);
             ScreenEffects.Init(new Vector2u(800, 600));
             ParticleManager.SetPositionRect(new FloatRect(-500, 0, 1400, 600));
+            Camera.MinPosition = new Vector2f(0, 0);
+            Camera.MaxPosition = new Vector2f(100, 100);
             //ParticleManager.Gravity = GameProperties.GravitationalAcceleration;
             try
             {
@@ -98,7 +100,7 @@ namespace JamTemplate
             {
                 _myWorld.Update(Timing.Update(deltaT));
 
-               // Game End Condition
+                // Game End Condition
 
             }
             else if (_gameState == State.Menu && this._timeTilNextInput <= 0.0f)
