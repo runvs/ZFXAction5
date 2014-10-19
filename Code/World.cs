@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JamUtilities;
 using JamUtilities.Particles;
 using JamUtilities.ScreenEffects;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.Window;
 using Mouse = SFML.Window.Mouse;
@@ -21,6 +22,13 @@ namespace JamTemplate
         private List<Projectile> _projectiles;
         private Level _level;
 
+        private SoundBuffer _upg1Buffer;
+        private SoundBuffer _upg2Buffer;
+        private SoundBuffer _bipBuffer;
+        private Sound _upg1Sound;
+        private Sound _upg2Sound;
+        private Sound _bipSound;
+
         private int Lives { get; set; }
         public int Kills { get; set; }
         public bool Dead { get; private set; }
@@ -35,6 +43,18 @@ namespace JamTemplate
 
         public World()
         {
+            _upg1Buffer = new SoundBuffer("../SFX/up1.wav");
+            _upg2Buffer = new SoundBuffer("../SFX/up2.wav");
+            _bipBuffer = new SoundBuffer("../SFX/bip.wav");
+
+            _upg1Sound = new Sound(_upg1Buffer);
+            _upg2Sound = new Sound(_upg2Buffer);
+            _bipSound = new Sound(_bipBuffer);
+
+            _upg1Sound.Volume = 25f;
+            _upg2Sound.Volume = 50f;
+            _bipSound.Volume = 50f;
+
             InitGame();
         }
 
@@ -108,7 +128,9 @@ namespace JamTemplate
 
                 if (tile.Type == TileType.Buildzone)
                 {
+                    _bipSound.Play();
                     TowerBuilder.ShowBuildMenu(tile);
+
                 }
                 else if (tile.Type == TileType.Tower)
                 {
@@ -120,6 +142,7 @@ namespace JamTemplate
                             affectedTower = tower;
                         }
                     }
+                    _bipSound.Play();
                     TowerBuilder.ShowUpgradeMenu(tile, affectedTower);
                 }
                 else
@@ -136,6 +159,7 @@ namespace JamTemplate
 
                             if (tower.BaseCost <= CareerPoints)
                             {
+                                _upg1Sound.Play();
                                 _towers.Add(tower);
                                 CareerPoints -= tower.BaseCost;
                                 TowerBuilder.AffectedTile.Type = TileType.Tower;
@@ -156,6 +180,7 @@ namespace JamTemplate
                             {
                                 TowerBuilder.AffectedTower.Upgrade();
                                 CareerPoints -= TowerBuilder.AffectedTower.CalculateUpgradeCosts();
+                                _upg2Sound.Play();
                             }
                             else
                             {
@@ -167,6 +192,7 @@ namespace JamTemplate
                             CareerPoints += TowerBuilder.AffectedTower.BaseCost;
                             TowerBuilder.AffectedTile.Type = TileType.Buildzone;
                             _towers.Remove(TowerBuilder.AffectedTower);
+                            _upg2Sound.Play();
                         }
                     }
 

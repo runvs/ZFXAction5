@@ -113,7 +113,6 @@ namespace JamTemplate
 
         private void Shoot(Prisoner target)
         {
-
             _attackTimerRemaining = _attackTimerMax;
             if (Type == TowerType.Melee)
             {
