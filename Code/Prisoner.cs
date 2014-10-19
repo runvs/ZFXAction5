@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using JamTemplate;
 using JamUtilities;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -35,6 +36,10 @@ namespace JamTemplate
 
         private SFML.Graphics.RectangleShape _healthShape;
 
+        private SoundBuffer _hitSoundBuffer;
+        private Sound _hitSound;
+
+
         public float FreezeinTimeRemaining { get; private set; }
 
         public Prisoner()
@@ -50,6 +55,8 @@ namespace JamTemplate
             _healthShape.FillColor = Color.Red;
             _healthShape.Origin = new Vector2f(-2, 10);
 
+            _hitSoundBuffer = new SoundBuffer("../SFX/hit.wav");
+            _hitSound = new Sound(_hitSoundBuffer);
         }
 
         public void SetPath(List<eDirection> path)
@@ -74,6 +81,8 @@ namespace JamTemplate
 
             _sprite.Flash(Color.Red, 0.5f);
             _sprite.Shake(0.25f, 0.05f, 1.0f);
+
+            _hitSound.Play();
         }
 
         private void CheckIsDead()

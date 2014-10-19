@@ -1,5 +1,6 @@
 ﻿using System;
 using JamUtilities;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -20,6 +21,15 @@ namespace JamTemplate
 
         private float _towerRange;
 
+        private SoundBuffer _MeleeHitSoundBuffer;
+        private Sound _MeleeHitSound;
+
+        private SoundBuffer _FreezeHitSoundBuffer;
+        private Sound _FreezeHitSound;
+
+        private SoundBuffer _ShootHitSoundBuffer;
+        private Sound _ShootHitSound;
+
 
         public Tower(TowerType type, Vector2i tilePosition, World world)
         {
@@ -27,6 +37,15 @@ namespace JamTemplate
             Type = type;
             Position = tilePosition;
             Level = 1;
+
+            _MeleeHitSoundBuffer = new SoundBuffer("../SFX/hit2.wav");
+            _MeleeHitSound = new Sound(_MeleeHitSoundBuffer);
+
+            _FreezeHitSoundBuffer = new SoundBuffer("../SFX/slow.wav");
+            _FreezeHitSound = new Sound(_FreezeHitSoundBuffer);
+
+            _ShootHitSoundBuffer = new SoundBuffer("../SFX/shoot.wav");
+            _ShootHitSound = new Sound(_FreezeHitSoundBuffer);
 
             switch (type)
             {
@@ -99,9 +118,19 @@ namespace JamTemplate
             if (Type == TowerType.Melee)
             {
                 target.TakeDamage(GameProperties.TowerMeleeAttackDamage * (float)(Math.Sqrt(Level)));
+                _MeleeHitSound.Volume = 1.5f;
+                _MeleeHitSound.Play();
             }
             else if (Type == TowerType.Normal || Type == TowerType.Splash || Type == TowerType.Freeze)
             {
+                if (Type == TowerType.Freeze)
+                {
+                    _FreezeHitSound.Play();
+                }
+                else
+                {
+                    _ShootHitSound.Play();
+                }
                 _world.SpawnProjectile(new Projectile(this, target));
             }
             else
