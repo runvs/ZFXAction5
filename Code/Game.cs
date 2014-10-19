@@ -2,6 +2,7 @@
 using JamUtilities;
 using JamUtilities.Particles;
 using JamUtilities.ScreenEffects;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -16,7 +17,11 @@ namespace JamTemplate
 
         World _myWorld;
         Score _gameStats;
+
         float _timeTilNextInput = 0.0f;
+
+        private Music _bgm;
+
 
         #endregion Fields
 
@@ -40,6 +45,9 @@ namespace JamTemplate
 
                 SmartText._lineLengthInChars = 18;
                 SmartText._lineSpread = 1.2f;
+                _bgm = new Music("../SFX/ZFX_Action5_OST.ogg");
+                _bgm.Loop = true;
+                _bgm.Play();
             }
             catch (Exception e)
             {
