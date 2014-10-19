@@ -144,6 +144,7 @@ namespace JamTemplate
                                     {
                                         towerToRemove = tower;
                                         CareerPoints += tower.BaseCost;
+                                        TowerBuilder.AffectedTile.Type = TileType.Buildzone;
                                         break;
                                     }
                                 }
