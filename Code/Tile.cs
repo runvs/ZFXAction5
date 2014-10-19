@@ -33,6 +33,10 @@ namespace JamTemplate
             {
                 Sprite = new SmartSprite("../GFX/buildzone.png");
             }
+            else if (_type == TileType.Wall)
+            {
+                Sprite = new SmartSprite("../GFX/wall.png");
+            }
             else
             {
                 throw new Exception("Tile Type not known");
