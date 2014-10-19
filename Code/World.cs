@@ -114,8 +114,18 @@ namespace JamTemplate
 
                             if (selectedTower != TowerType.None)
                             {
-                                _towers.Add(new Tower(selectedTower, TowerBuilder.AffectedTile.Position, this));
-                                TowerBuilder.AffectedTile.Type = TileType.Tower;
+                                var tower = new Tower(selectedTower, TowerBuilder.AffectedTile.Position, this);
+
+                                if (tower.BaseCost <= CareerPoints)
+                                {
+                                    _towers.Add(tower);
+                                    CareerPoints -= tower.BaseCost;
+                                    TowerBuilder.AffectedTile.Type = TileType.Tower;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Not enough career points!");
+                                }
                             }
                         }
                         else if (TowerBuilder.IsUpgradeMenuShown)
