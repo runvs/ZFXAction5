@@ -1,7 +1,7 @@
-﻿using JamUtilities;
+﻿using System;
+using JamUtilities;
 using SFML.Graphics;
 using SFML.Window;
-using System;
 
 namespace JamTemplate
 {
@@ -23,12 +23,16 @@ namespace JamTemplate
                     _sprite = new SmartSprite("../GFX/towerMelee.png");
                     break;
 
-                case TowerType.CloseRange:
-                    _sprite = new SmartSprite("../GFX/towerCloseRange.png");
+                case TowerType.Normal:
+                    _sprite = new SmartSprite("../GFX/towerNormal.png");
                     break;
 
-                case TowerType.LongRange:
-                    _sprite = new SmartSprite("../GFX/towerLongRange.png");
+                case TowerType.Splash:
+                    _sprite = new SmartSprite("../GFX/towerSplash.png");
+                    break;
+
+                case TowerType.Freeze:
+                    _sprite = new SmartSprite("../GFX/towerFreeze.png");
                     break;
             }
 
@@ -57,6 +61,6 @@ namespace JamTemplate
 
     public enum TowerType
     {
-        Melee, CloseRange, LongRange, None
+        Melee, Normal, Splash, Freeze, None
     }
 }
