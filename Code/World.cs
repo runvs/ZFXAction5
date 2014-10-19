@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Odbc;
 using JamUtilities;
 using JamUtilities.Particles;
@@ -18,6 +19,7 @@ namespace JamTemplate
 
         private List<Prisoner> _prisonersList;
         private List<Tower> _towers;
+        private List<Projectile> _projectiles;
         private Level _level;
 
         private int Lives { get; set; }
@@ -153,6 +155,24 @@ namespace JamTemplate
             }
             _prisonersList = newPrisonerList;
 
+            Console.WriteLine(_projectiles.Count);
+            List<Projectile> newProjectileList = new List<Projectile>();
+            foreach (var p in _projectiles)
+            {
+                p.Update(timeObject);
+
+                if (!p.IsDead())
+                {
+                    newProjectileList.Add(p);
+                }
+                else
+                {
+                    p._target.TakeDamage(p.Damage);
+                }
+            }
+            _projectiles = newProjectileList;
+
+
             foreach (var tower in _towers)
             {
                 tower.Update(timeObject);
@@ -188,6 +208,10 @@ namespace JamTemplate
             {
                 p.DrawHealthShape(rw);
             }
+            foreach (var p in _projectiles)
+            {
+                p.Draw(rw);
+            }
 
             TowerBuilder.Draw(rw);
             SpecialAbilities.Draw(rw);
@@ -205,6 +229,7 @@ namespace JamTemplate
         {
             _prisonersList = new List<Prisoner>();
             _towers = new List<Tower>();
+            _projectiles = new List<Projectile>();
 
             _level = LevelLoader.GetLevel(1, this);
             Lives = GameProperties.PlayerInitialLives;
@@ -216,7 +241,12 @@ namespace JamTemplate
 
         }
 
-        #endregion Methods
+        public void SpawnProjectile(Projectile p)
+        {
+            //
+            _projectiles.Add(p);
+        }
+
 
         public void Spawn(Prisoner prisoner)
         {
@@ -258,5 +288,9 @@ namespace JamTemplate
 
             return retVal;
         }
+
+        #endregion Methods
+
+
     }
 }

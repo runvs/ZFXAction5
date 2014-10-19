@@ -67,6 +67,7 @@ namespace JamTemplate
 
         public void Update(TimeObject timeObject)
         {
+
             if (_attackTimerRemaining > 0)
             {
                 _attackTimerRemaining -= timeObject.ElapsedGameTime;
@@ -86,26 +87,19 @@ namespace JamTemplate
 
         private void Shoot(Prisoner target)
         {
+
             _attackTimerRemaining = _attackTimerMax;
             if (Type == TowerType.Melee)
             {
                 target.TakeDamage(GameProperties.TowerMeleeAttackDamage);
             }
-            else if (Type == TowerType.Normal)
+            else if (Type == TowerType.Normal || Type == TowerType.Splash || Type == TowerType.Freeze)
             {
-
-            }
-            else if (Type == TowerType.Splash)
-            {
-
-            }
-            else if (Type == TowerType.Freeze)
-            {
-
+                _world.SpawnProjectile(new Projectile(this, target));
             }
             else
             {
-                throw new Exception("Tower Type NONE!!!");
+                throw new Exception("Tower Type NONE or not known!!!");
             }
         }
 

@@ -61,6 +61,7 @@
     <Compile Include="Prisoner.cs" />
     <Compile Include="PrisonerSpawner.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Score.cs" />
     <Compile Include="SpecialAbilities.cs" />

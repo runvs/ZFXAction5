@@ -106,6 +106,31 @@ namespace JamTemplate
             get { return 5.0f; }
         }
 
+        public static float TowerNormalAttackDamage
+        {
+            get { return 4.0f; }
+        }
 
+        public static float TowerSplashAttackDamage
+        {
+            get { return 1.0f; }
+        }
+        public static float TowerFreezeAttackDamage
+        {
+            get { return 0.5f; }
+        }
+
+
+
+
+        public static float ProjectileDistanceToTargetMin
+        {
+            get { return 5.5f; }
+        }
+
+        public static float ProjectileSpeed
+        {
+            get { return 3.0f; }
+        }
     }
 }
