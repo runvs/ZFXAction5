@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using JamUtilities;
@@ -16,9 +17,12 @@ namespace JamTemplate
         private float spawnTimerOffset;
         private World _world;
 
+        private int prisonersSpawned = 0;
+
         private List<eDirection> _path;
 
 
+        public float Power { get; set; }
 
 
         public PrisonerSpawner(World world, Vector2i tilePosition, float timer)
@@ -70,11 +74,15 @@ namespace JamTemplate
 
         private void Spawn()
         {
-            Prisoner prisoner = new Prisoner();
+
+            prisonersSpawned++;
+            Prisoner prisoner = new Prisoner(Power);
             prisoner.PositionInTiles = SpawnPositionInTiles;
             prisoner.SetPath(_path);
 
             _world.Spawn(prisoner);
+
+            Power = (float)(Math.Pow(prisonersSpawned, 1.25f)) / 100.0f + 1.0f;
         }
 
         public void Draw(SFML.Graphics.RenderWindow rw)

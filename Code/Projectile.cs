@@ -66,7 +66,18 @@ namespace JamTemplate
 
         public bool IsDead()
         {
-            return (GetDistanceToTarget() <= GameProperties.ProjectileDistanceToTargetMin);
+            //if( (GetDistanceToTarget() <= GameProperties.ProjectileDistanceToTargetMin))
+            //{
+            //    return true;
+            //}
+            FloatRect r1 = _target._sprite.Sprite.GetGlobalBounds();
+            FloatRect r2 = _sprite.Sprite.GetGlobalBounds();
+            if (r1.Intersects(r2))
+            {
+                //Console.WriteLine("intersect");
+                return true;
+            }
+            return false;
         }
 
         public void GetInput()
@@ -78,7 +89,7 @@ namespace JamTemplate
         {
             // normalize direction
             Vector2f distance = GameProperties.TileSizeInPixel *
-                                new Vector2f(_target.PositionInTiles.X, _target.PositionInTiles.Y) - Position;
+                                new Vector2f(_target.PositionInTiles.X, _target.PositionInTiles.Y) + _target.GetSubTileOffset() - Position;
             float dist = (float)Math.Sqrt(distance.X * distance.X + distance.Y * distance.Y);
             Vector2f direction = distance / dist;
 
@@ -87,6 +98,10 @@ namespace JamTemplate
                 ParticleManager.SpawnSmokeCloud(Position, 20, 5, Color.White, 0.5f);
             }
 
+            if (_tower.Type == TowerType.Normal || _tower.Type == TowerType.Splash || _tower.Type == TowerType.Freeze)
+            {
+                _sprite.Rotation = _sprite.Rotation + 75.5f * timeObject.ElapsedGameTime;
+            }
 
             _velocity = direction * GameProperties.ProjectileSpeed;
 

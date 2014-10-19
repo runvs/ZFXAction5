@@ -41,7 +41,7 @@ namespace JamTemplate
 
         #region Methods
 
-        public World()
+        public World(char level)
         {
             _upg1Buffer = new SoundBuffer("../SFX/up1.wav");
             _upg2Buffer = new SoundBuffer("../SFX/up2.wav");
@@ -55,7 +55,7 @@ namespace JamTemplate
             _upg2Sound.Volume = 50f;
             _bipSound.Volume = 50f;
 
-            InitGame();
+            InitGame(level);
         }
 
         public void GetInput()
@@ -250,9 +250,14 @@ namespace JamTemplate
                 else
                 {
                     p._target.TakeDamage(p.Damage);
+
+                    ParticleManager.SpawnMultipleDebris(p.Position + new Vector2f(16, 16), 200, new Color(242, 242, 125), 9, 0.8f);
+
+
                     if (p._tower.Type == TowerType.Splash)
                     {
                         DoSplashDamage(p._target, p);
+
                     }
                     else if (p._tower.Type == TowerType.Freeze)
                     {
@@ -282,6 +287,7 @@ namespace JamTemplate
                         if (dist <= GameProperties.TowerSpashDamageRange)
                         {
                             p.TakeDamage(proj.Damage);
+                            ParticleManager.SpawnMultipleDebris(p.GetOnScreenSubTilePosition() - Camera.CameraPosition + new Vector2f(16, 16), 200, new Color(242, 242, 125), 9, 0.8f);
                         }
                     }
                 }
@@ -334,13 +340,21 @@ namespace JamTemplate
             ScreenEffects.Draw(rw);
         }
 
-        private void InitGame()
+        private void InitGame(char level)
         {
             _prisonersList = new List<Prisoner>();
             _towers = new List<Tower>();
             _projectiles = new List<Projectile>();
 
-            _level = LevelLoader.GetLevel(1, this);
+            if (level == 'a')
+            {
+                _level = LevelLoader.GetLevel(1, this);
+            }
+            else
+            {
+                _level = LevelLoader.GetLevel(2, this);
+            }
+
             Lives = GameProperties.PlayerInitialLives;
             Dead = false;
 

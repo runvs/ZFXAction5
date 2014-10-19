@@ -26,11 +26,12 @@ namespace JamTemplate
 
         public bool finished { get; private set; }
 
-        private SmartSprite _sprite;
+        public SmartSprite _sprite;
 
         private List<eDirection> _path;
 
         public float movementTimer { get; private set; }
+        private float movementTimerMax { get; set; }
 
         private eDirection currentMovementDirection;
 
@@ -39,16 +40,20 @@ namespace JamTemplate
         private SoundBuffer _hitSoundBuffer;
         private Sound _hitSound;
 
+        public float Power { get; set; }
+
+
 
         public float FreezeinTimeRemaining { get; private set; }
 
-        public Prisoner()
+        public Prisoner(float power = 1.0f)
         {
+            Power = power;
             _sprite = new SmartSprite("../GFX/prisoner.png");
-            Health = HealthMax = GameProperties.PrisonerHealtDefault;
+            Health = HealthMax = GameProperties.PrisonerHealtDefault * Power * Power;
             dead = false;
             finished = false;
-            movementTimer = GameProperties.PrisonerMovementTimer;
+            movementTimer = movementTimerMax = GameProperties.PrisonerMovementTimer * 1 / Power;
 
             _healthShape = new RectangleShape(new Vector2f(60, 10));
 
@@ -80,7 +85,7 @@ namespace JamTemplate
             CheckIsDead();
 
             _sprite.Flash(Color.Red, 0.5f);
-            _sprite.Shake(0.25f, 0.05f, 1.0f);
+            _sprite.Shake(0.25f, 0.05f, 2.0f);
 
             _hitSound.Play();
         }
@@ -124,7 +129,7 @@ namespace JamTemplate
                 movementTimer -= timeObject.ElapsedGameTime;
                 if (movementTimer <= 0)
                 {
-                    movementTimer = GameProperties.PrisonerMovementTimer;
+                    movementTimer = movementTimerMax;
                     MoveForward();
                 }
             }
@@ -158,15 +163,22 @@ namespace JamTemplate
 
         public Vector2f GetOnScreenSubTilePosition()
         {
+
+
+            return GetOnScreenPosition() + GetSubTileOffset();
+        }
+
+        public Vector2f GetSubTileOffset()
+        {
             Vector2f movedir = Direction.GetDirectionFloatFromEnum(currentMovementDirection);
 
-            float movtim = GameProperties.PrisonerMovementTimer - movementTimer;
+            float movtim = movementTimerMax - movementTimer;
 
             Vector2f subTilePosition =
               GameProperties.TileSizeInPixel * movedir *
-                                ((movtim > 0) ? movtim / GameProperties.PrisonerMovementTimer : 0); // kinda crappy code, but it looks cool
+                                ((movtim > 0) ? movtim / movementTimerMax : 0); // kinda crappy code, but it looks cool
 
-            return GetOnScreenPosition() + subTilePosition;
+            return subTilePosition;
         }
 
 

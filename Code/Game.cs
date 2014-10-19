@@ -36,6 +36,7 @@ namespace JamTemplate
             SmartSprite._scaleVector = new Vector2f(2.0f, 2.0f);
             ScreenEffects.Init(new Vector2u(800, 600));
             ParticleManager.SetPositionRect(new FloatRect(-500, 0, 1400, 600));
+            ParticleManager.Gravity = new Vector2f();
             Camera.MinPosition = new Vector2f(0, 0);
             Camera.MaxPosition = GameProperties.TileSizeInPixel * GameProperties.LevelSize * new Vector2f(1, 1) - new Vector2f(800, 600);
             //ParticleManager.Gravity = GameProperties.GravitationalAcceleration;
@@ -74,10 +75,18 @@ namespace JamTemplate
             }
         }
 
+        private char level = 'a';
+
         private void GetInputMenu()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.A))
             {
+                level = 'a';
+                StartGame();
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.B))
+            {
+                level = 'b';
                 StartGame();
             }
 
@@ -145,10 +154,10 @@ namespace JamTemplate
         {
             SmartText.DrawText("Yet Another Tower Defence Game", TextAlignment.MID, new Vector2f(400.0f, 150.0f), 1.5f, rw);
 
-            SmartText.DrawText("Start [Return]", TextAlignment.MID, new Vector2f(400.0f, 250.0f), rw);
-            SmartText.DrawText("Arrows or WASD for Camera", TextAlignment.MID, new Vector2f(400.0f, 340.0f), rw);
-            SmartText.DrawText("Mouse for Building Towers", TextAlignment.MID, new Vector2f(400.0f, 375.0f), rw);
-            SmartText.DrawText("1 2 3 for special abilities", TextAlignment.MID, new Vector2f(400.0f, 410.0f), rw);
+            SmartText.DrawText("Start Level [A] or [B]", TextAlignment.MID, new Vector2f(400.0f, 250.0f), rw);
+            SmartText.DrawText("[Arrows] or [WASD] for Camera", TextAlignment.MID, new Vector2f(400.0f, 340.0f), rw);
+            SmartText.DrawText("[Mouse] for Building Towers", TextAlignment.MID, new Vector2f(400.0f, 375.0f), rw);
+            SmartText.DrawText("[1] [2] [3] for special abilities", TextAlignment.MID, new Vector2f(400.0f, 410.0f), rw);
 
             SmartText.DrawText("[C]redits", TextAlignment.LEFT, new Vector2f(30.0f, 550.0f), rw);
             ScreenEffects.GetStaticEffect("vignette").Draw(rw);
@@ -182,7 +191,7 @@ namespace JamTemplate
 
         private void StartGame()
         {
-            _myWorld = new World();
+            _myWorld = new World(level);
             ChangeGameState(State.Game, 0.1f);
         }
 

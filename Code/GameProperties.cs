@@ -121,10 +121,6 @@ namespace JamTemplate
             get { return 0.5f; }
         }
 
-        public static float ProjectileDistanceToTargetMin
-        {
-            get { return 5.5f; }
-        }
 
         public static float ProjectileSpeed
         {

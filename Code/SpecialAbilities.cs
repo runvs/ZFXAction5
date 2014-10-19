@@ -102,22 +102,29 @@ namespace JamTemplate
 
         private static void IncreaseAbilities(float careerPoints, TimeObject timeObject)
         {
-            _freezePrizonersLoader += careerPoints * GameProperties.SpecialAbilitiesCareerPointsScalingFreeze *
-                                     timeObject.ElapsedGameTime;
+            float increase = careerPoints * timeObject.ElapsedGameTime;
+            if (increase > 0.07f)
+            {
+                increase = 0.07f;
+            }
+            if (increase <= 0)
+            {
+                increase = 0;
+            }
+            //Console.WriteLine(increase);
+            _freezePrizonersLoader += increase * GameProperties.SpecialAbilitiesCareerPointsScalingFreeze;
             if (_freezePrizonersLoader >= GameProperties.SpecialAbilitiesMaxValue)
             {
                 _freezePrizonersLoader = GameProperties.SpecialAbilitiesMaxValue;
             }
 
-            _damagePrisonersLoader += careerPoints * GameProperties.SpecialAbilitiesCareerPointsScalingDamage *
-                         timeObject.ElapsedGameTime;
+            _damagePrisonersLoader += increase * GameProperties.SpecialAbilitiesCareerPointsScalingDamage;
             if (_damagePrisonersLoader >= GameProperties.SpecialAbilitiesMaxValue)
             {
                 _damagePrisonersLoader = GameProperties.SpecialAbilitiesMaxValue;
             }
 
-            _xxxPrisonersLoader += careerPoints * GameProperties.SpecialAbilitiesCareerPointsScalingXXX *
-                        timeObject.ElapsedGameTime;
+            _xxxPrisonersLoader += increase * GameProperties.SpecialAbilitiesCareerPointsScalingXXX;
             if (_xxxPrisonersLoader >= GameProperties.SpecialAbilitiesMaxValue)
             {
                 _xxxPrisonersLoader = GameProperties.SpecialAbilitiesMaxValue;

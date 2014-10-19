@@ -78,6 +78,7 @@ namespace JamTemplate
                     break;
             }
 
+            _sprite.Sprite.Origin = new Vector2f(16, 16);
             _sprite.Position = new Vector2f(Position.X * GameProperties.TileSizeInPixel, Position.Y * GameProperties.TileSizeInPixel);
         }
 
@@ -91,8 +92,30 @@ namespace JamTemplate
             throw new NotImplementedException();
         }
 
+
+        private void RotateToTarget(Prisoner target)
+        {
+            Vector2i dif = (target.PositionInTiles - Position);
+            Vector2f vector = new Vector2f(dif.X, dif.Y) * GameProperties.TileSizeInPixel + target.GetSubTileOffset();
+
+            float angle = (float)(Math.Atan(vector.Y / vector.X) + ((Math.Sign(vector.X) < 0) ? Math.PI : 0));  // calc angle by atan, note confinement of atan to [-90,90]
+            // just in case, bend back angle to [0,360]
+            while (angle > 2.0 * Math.PI)
+            {
+                angle -= 2.0f * (float)(Math.PI);
+            }
+            _sprite.Rotation = (float)(MathStuff.RadianToDegree(angle));
+        }
+
+
         public void Update(TimeObject timeObject)
         {
+
+            Prisoner target = _world.GetPrisonerNextTo(this.Position);
+            if (target != null)
+            {
+                RotateToTarget(target);
+            }
 
             if (_attackTimerRemaining > 0)
             {
@@ -100,11 +123,12 @@ namespace JamTemplate
             }
             else
             {
-                Prisoner target = _world.GetPrisonerNextTo(this.Position);
+
                 if (target != null)
                 {
                     if (CheckRangeCondition(target))
                     {
+
                         Shoot(target);
                     }
                 }
@@ -159,7 +183,7 @@ namespace JamTemplate
 
         public void Draw(RenderWindow rw)
         {
-            _sprite.Position = GetOnScreenPosition();
+            _sprite.Position = GetOnScreenPosition() + new Vector2f(32, 32);
             _sprite.Draw(rw);
         }
 
