@@ -100,7 +100,7 @@ namespace JamTemplate
 
             if (_tower.Type == TowerType.Normal || _tower.Type == TowerType.Splash || _tower.Type == TowerType.Freeze)
             {
-                _sprite.Rotation = _sprite.Rotation + 75.5f * timeObject.ElapsedGameTime;
+                _sprite.Rotation = _sprite.Rotation + 125.5f * timeObject.ElapsedGameTime;
             }
 
             _velocity = direction * GameProperties.ProjectileSpeed;
@@ -111,7 +111,9 @@ namespace JamTemplate
         public void Draw(SFML.Graphics.RenderWindow rw)
         {
             _sprite.Position = GetOnScreenPosition();
-            _sprite.Draw(rw);
+
+            if (_tower.Type != TowerType.Freeze)
+                _sprite.Draw(rw);
         }
 
         public float Damage { get; private set; }
