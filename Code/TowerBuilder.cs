@@ -34,7 +34,7 @@ namespace JamTemplate
             IsBuildMenuShown = true;
         }
 
-        public static void ShowUpgradeMenu(Tile tile)
+        public static void ShowUpgradeMenu(Tile tile, Tower tower)
         {
             if (IsBuildMenuShown)
             {
@@ -44,6 +44,7 @@ namespace JamTemplate
             _upgradeMenuSprite.Position = tile.GetOnScreenPosition();
             _upgradeMenuSprite.Origin = new Vector2f(16, 32);
             AffectedTile = tile;
+            AffectedTower = tower;
 
             IsUpgradeMenuShown = true;
         }
@@ -144,6 +145,14 @@ namespace JamTemplate
             {
                 _upgradeMenuSprite.Position = AffectedTile.GetOnScreenPosition();
                 _upgradeMenuSprite.Draw(rw);
+
+                var bounds = _upgradeMenuSprite.Sprite.GetGlobalBounds();
+
+                _shape.Position = new Vector2f(bounds.Left, bounds.Top);
+                if (world.CareerPoints < AffectedTower.CalculateUpgradeCosts())
+                {
+                    rw.Draw(_shape);
+                }
             }
         }
     }

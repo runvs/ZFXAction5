@@ -112,7 +112,15 @@ namespace JamTemplate
                 }
                 else if (tile.Type == TileType.Tower)
                 {
-                    TowerBuilder.ShowUpgradeMenu(tile);
+                    Tower affectedTower = null;
+                    foreach (var tower in _towers)
+                    {
+                        if (tower.Intersects(tile.Sprite.Sprite.GetGlobalBounds()))
+                        {
+                            affectedTower = tower;
+                        }
+                    }
+                    TowerBuilder.ShowUpgradeMenu(tile, affectedTower);
                 }
                 else
                 {
@@ -141,36 +149,25 @@ namespace JamTemplate
                     else if (TowerBuilder.IsUpgradeMenuShown)
                     {
                         var action = TowerBuilder.ClickedInsideUpgradeMenu(mousePos);
-                        Tower towerToRemove = null;
 
-                        // Find the tower
-                        foreach (var tower in _towers)
+                        if (action == "UPGRADE")
                         {
-                            if (tower.Intersects(TowerBuilder.AffectedTile.Sprite.Sprite.GetGlobalBounds()))
+                            if (TowerBuilder.AffectedTower.CalculateUpgradeCosts() <= CareerPoints)
                             {
-                                if (action == "UPGRADE")
-                                {
-                                    if (tower.CalculateUpgradeCosts() <= CareerPoints)
-                                    {
-                                        tower.Upgrade();
-                                        CareerPoints -= tower.CalculateUpgradeCosts();
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Not enough career points!");
-                                    }
-                                }
-                                else if (action == "SELL")
-                                {
-                                    towerToRemove = tower;
-                                    CareerPoints += tower.BaseCost;
-                                    TowerBuilder.AffectedTile.Type = TileType.Buildzone;
-                                    break;
-                                }
+                                TowerBuilder.AffectedTower.Upgrade();
+                                CareerPoints -= TowerBuilder.AffectedTower.CalculateUpgradeCosts();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Not enough career points!");
                             }
                         }
-
-                        if (towerToRemove != null) _towers.Remove(towerToRemove);
+                        else if (action == "SELL")
+                        {
+                            CareerPoints += TowerBuilder.AffectedTower.BaseCost;
+                            TowerBuilder.AffectedTile.Type = TileType.Buildzone;
+                            _towers.Remove(TowerBuilder.AffectedTower);
+                        }
                     }
 
                     TowerBuilder.HideMenus();
