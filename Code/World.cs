@@ -72,6 +72,10 @@ namespace JamTemplate
             {
                 SpecialAbilities.DamagePrisoners();
             }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Num3))
+            {
+                //SpecialAbilities.DamagePrisoners();
+            }
 
             else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && _isMouseDown)
             {

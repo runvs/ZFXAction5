@@ -13,7 +13,6 @@ namespace JamTemplate
 
     public class Prisoner : IGameObject
     {
-
         public Vector2i PositionInTiles { get; set; }
         public Vector2i TargetPositionInTiles { get; set; }
 
@@ -37,8 +36,6 @@ namespace JamTemplate
         private SFML.Graphics.RectangleShape _healthShape;
 
         public float FreezeinTimeRemaining { get; private set; }
-
-
 
         public Prisoner()
         {

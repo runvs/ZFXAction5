@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using JamUtilities;
 using SFML.Graphics;
+using SFML.Window;
 
 namespace JamTemplate
 {
@@ -12,15 +13,48 @@ namespace JamTemplate
         private static World _world;
 
         private static float _freezePrizonersLoader;
+        private static RectangleShape _freezeShape;
 
         private static float _damagePrisonersLoader;
+        private static RectangleShape _damageShape;
+
+        private static float _xxxPrisonersLoader;
+        private static RectangleShape _xxxShape;
+
+        private static SmartSprite _sprite = new SmartSprite("../GFX/SpecialAbilities.png");
+
 
 
         public static void SetWorld(World world)
         {
             _world = world;
+
             _freezePrizonersLoader = 0;
             _damagePrisonersLoader = 0;
+            _xxxPrisonersLoader = 0;
+
+            _sprite.Origin = new Vector2f(96, 32);
+            _sprite.Position = new Vector2f(800, 600);
+
+
+
+            _freezeShape = new RectangleShape(new Vector2f(16, 64));
+            _freezeShape.FillColor = Color.Red;
+            _freezeShape.Origin = new Vector2f(0, 64);
+            _freezeShape.Position = new Vector2f(656, 600);
+
+
+            _damageShape = new RectangleShape(new Vector2f(16, 64));
+            _damageShape.FillColor = Color.Red;
+            _damageShape.Origin = new Vector2f(0, 64);
+            _damageShape.Position = new Vector2f(720, 600);
+
+            _xxxShape = new RectangleShape(new Vector2f(16, 64));
+            _xxxShape.FillColor = Color.Red;
+            _xxxShape.Origin = new Vector2f(0, 64);
+            _xxxShape.Position = new Vector2f(784, 600);
+
+
         }
         public static void Update(TimeObject timeObject)
         {
@@ -30,6 +64,11 @@ namespace JamTemplate
 
                 IncreaseAbilities(careerPoints, timeObject);
                 //Console.WriteLine(_freezePrizonersLoader);
+
+                _freezeShape.Scale = new Vector2f(1, _freezePrizonersLoader / GameProperties.SpecialAbilitiesMaxValue);
+                _damageShape.Scale = new Vector2f(1, _damagePrisonersLoader / GameProperties.SpecialAbilitiesMaxValue);
+                _xxxShape.Scale = new Vector2f(1, _xxxPrisonersLoader / GameProperties.SpecialAbilitiesMaxValue);
+
             }
         }
 
@@ -67,12 +106,28 @@ namespace JamTemplate
             {
                 _damagePrisonersLoader = GameProperties.SpecialAbilitiesMaxValue;
             }
+
+            _xxxPrisonersLoader += careerPoints * GameProperties.SpecialAbilitiesCareerPointsScalingXXX *
+                        timeObject.ElapsedGameTime;
+            if (_xxxPrisonersLoader >= GameProperties.SpecialAbilitiesMaxValue)
+            {
+                _xxxPrisonersLoader = GameProperties.SpecialAbilitiesMaxValue;
+            }
         }
 
 
         public static void Draw(RenderWindow rw)
         {
+            _sprite.Draw(rw);
 
+            DrawBars(rw);
+        }
+
+        private static void DrawBars(RenderWindow rw)
+        {
+            rw.Draw(_freezeShape);
+            rw.Draw(_damageShape);
+            rw.Draw(_xxxShape);
         }
     }
 }
