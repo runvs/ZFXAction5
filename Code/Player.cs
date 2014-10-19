@@ -84,7 +84,7 @@ namespace JamTemplate
         private void LoadGraphics()
         {
 
-            //_sprite = new SmartSprite("../GFX/player.png");
+            //Sprite = new SmartSprite("../GFX/player.png");
         }
 
         #endregion Methods

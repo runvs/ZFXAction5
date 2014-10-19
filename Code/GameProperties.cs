@@ -110,6 +110,7 @@ namespace JamTemplate
         {
             get { return 4.0f; }
         }
+        public static int InitialCareerPoints { get { return 10; } }
 
         public static float TowerSplashAttackDamage
         {
@@ -132,5 +133,9 @@ namespace JamTemplate
         {
             get { return 3.0f; }
         }
+        public static int TowerMeleeBaseCost { get { return 2; } }
+        public static int TowerNormalBaseCost { get { return 5; } }
+        public static int TowerSplashBaseCost { get { return 7; } }
+        public static int TowerFreezeBaseCost { get { return 9; } }
     }
 }

@@ -9,6 +9,8 @@ namespace JamTemplate
     {
         public Vector2i Position { get; private set; }
         public TowerType Type { get; private set; }
+        public float Level { get; private set; }
+        public int BaseCost { get; private set; }
 
         private SmartSprite _sprite;
 
@@ -24,6 +26,7 @@ namespace JamTemplate
             _world = world;
             Type = type;
             Position = tilePosition;
+            Level = 1;
 
             switch (type)
             {
@@ -31,24 +34,28 @@ namespace JamTemplate
                     _sprite = new SmartSprite("../GFX/towerMelee.png");
                     _attackTimerRemaining = _attackTimerMax = GameProperties.TowerMeleeAttackTime;
                     _towerRange = GameProperties.TowerMeleeRange;
+                    BaseCost = GameProperties.TowerMeleeBaseCost;
                     break;
 
                 case TowerType.Normal:
                     _sprite = new SmartSprite("../GFX/towerNormal.png");
                     _attackTimerRemaining = _attackTimerMax = GameProperties.TowerNormalAttackTime;
                     _towerRange = GameProperties.TowerNormalRange;
+                    BaseCost = GameProperties.TowerNormalBaseCost;
                     break;
 
                 case TowerType.Splash:
                     _sprite = new SmartSprite("../GFX/towerSplash.png");
                     _attackTimerRemaining = _attackTimerMax = GameProperties.TowerSpashAttackTime;
                     _towerRange = GameProperties.TowerSpashRange;
+                    BaseCost = GameProperties.TowerSplashBaseCost;
                     break;
 
                 case TowerType.Freeze:
                     _sprite = new SmartSprite("../GFX/towerFreeze.png");
                     _attackTimerRemaining = _attackTimerMax = GameProperties.TowerFreezeAttackTime;
                     _towerRange = GameProperties.TowerFreezeRange;
+                    BaseCost = GameProperties.TowerFreezeBaseCost;
                     break;
             }
 
@@ -126,6 +133,24 @@ namespace JamTemplate
         {
             _sprite.Position = GetOnScreenPosition();
             _sprite.Draw(rw);
+        }
+
+        public bool Intersects(FloatRect bounds)
+        {
+            return _sprite.Sprite.GetGlobalBounds().Intersects(bounds);
+        }
+
+        public void Upgrade()
+        {
+            if (Level < 3)
+            {
+                Level++;
+            }
+        }
+
+        public int CalculateUpgradeCosts()
+        {
+            return (int)Math.Round((Level + 1) * BaseCost);
         }
     }
 

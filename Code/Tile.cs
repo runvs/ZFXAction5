@@ -10,7 +10,7 @@ namespace JamTemplate
         private TileType _type;
         public Vector2i Position { get; set; }
 
-        private SmartSprite _sprite;
+        public SmartSprite Sprite { get; private set; }
 
 
         public TileType Type
@@ -27,11 +27,11 @@ namespace JamTemplate
         {
             if (_type == TileType.Floor)
             {
-                _sprite = new SmartSprite("../GFX/floor.png");
+                Sprite = new SmartSprite("../GFX/floor.png");
             }
-            else if (_type == TileType.Buildzone)
+            else if (_type == TileType.Buildzone || _type == TileType.Tower)
             {
-                _sprite = new SmartSprite("../GFX/buildzone.png");
+                Sprite = new SmartSprite("../GFX/buildzone.png");
             }
             else
             {
@@ -52,13 +52,13 @@ namespace JamTemplate
 
         public void Draw(RenderWindow rw)
         {
-            _sprite.Position = GetOnScreenPosition();
-            _sprite.Draw(rw);
+            Sprite.Position = GetOnScreenPosition();
+            Sprite.Draw(rw);
         }
     }
 
     public enum TileType
     {
-        Floor, Wall, Buildzone
+        Floor, Wall, Buildzone, Tower
     }
 }

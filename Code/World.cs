@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Odbc;
 using JamUtilities;
 using JamUtilities.Particles;
 using JamUtilities.ScreenEffects;
@@ -26,7 +25,7 @@ namespace JamTemplate
         public int Kills { get; set; }
         public bool Dead { get; private set; }
 
-        public int CarreerPoints { get; private set; }
+        public int CareerPoints { get; private set; }
 
         private bool _isMouseDown;
 
@@ -90,8 +89,6 @@ namespace JamTemplate
                     JamUtilities.Mouse.MousePositionInWindow.Y
                 );
 
-
-
                 if (mousePos.X >= 0 && mousePos.Y >= 0)
                 {
                     mousePos += Camera.CameraPosition;
@@ -103,18 +100,59 @@ namespace JamTemplate
                     {
                         TowerBuilder.ShowBuildMenu(tile);
                     }
+                    else if (tile.Type == TileType.Tower)
+                    {
+                        TowerBuilder.ShowUpgradeMenu(tile);
+                    }
                     else
                     {
                         // We need to check here if the player clicked inside
-                        // the build window.
-                        var selectedTower = TowerBuilder.ClickedInsideBuildMenu(mousePos);
-
-                        if (selectedTower != TowerType.None)
+                        // the build/upgrade window.
+                        if (TowerBuilder.IsBuildMenuShown)
                         {
-                            _towers.Add(new Tower(selectedTower, TowerBuilder.OriginTile.Position, this));
+                            var selectedTower = TowerBuilder.ClickedInsideBuildMenu(mousePos);
+
+                            if (selectedTower != TowerType.None)
+                            {
+                                _towers.Add(new Tower(selectedTower, TowerBuilder.AffectedTile.Position, this));
+                                TowerBuilder.AffectedTile.Type = TileType.Tower;
+                            }
+                        }
+                        else if (TowerBuilder.IsUpgradeMenuShown)
+                        {
+                            var action = TowerBuilder.ClickedInsideUpgradeMenu(mousePos);
+                            Tower towerToRemove = null;
+
+                            // Find the tower
+                            foreach (var tower in _towers)
+                            {
+                                if (tower.Intersects(TowerBuilder.AffectedTile.Sprite.Sprite.GetGlobalBounds()))
+                                {
+                                    if (action == "UPGRADE")
+                                    {
+                                        if (tower.CalculateUpgradeCosts() <= CareerPoints)
+                                        {
+                                            tower.Upgrade();
+                                            CareerPoints -= tower.CalculateUpgradeCosts();
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Not enough career points!");
+                                        }
+                                    }
+                                    else if (action == "SELL")
+                                    {
+                                        towerToRemove = tower;
+                                        CareerPoints += tower.BaseCost;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (towerToRemove != null) _towers.Remove(towerToRemove);
                         }
 
-                        TowerBuilder.HideBuildMenu();
+                        TowerBuilder.HideMenus();
                     }
                 }
             }
@@ -149,7 +187,7 @@ namespace JamTemplate
                     else
                     {
                         Kills += 1;
-                        CarreerPoints += GameProperties.CareerPointsGainForPrisonerKill;
+                        CareerPoints += GameProperties.CareerPointsGainForPrisonerKill;
                     }
                 }
             }
@@ -217,7 +255,7 @@ namespace JamTemplate
             SpecialAbilities.Draw(rw);
 
             SmartText.DrawText("Lives: " + Lives, TextAlignment.LEFT, new Vector2f(10, 10), rw);
-            SmartText.DrawText("Career Points: " + CarreerPoints, TextAlignment.LEFT, new Vector2f(10, 35), rw);
+            SmartText.DrawText("Career Points: " + CareerPoints, TextAlignment.LEFT, new Vector2f(10, 35), rw);
 
 
             ParticleManager.Draw(rw);
@@ -235,7 +273,7 @@ namespace JamTemplate
             Lives = GameProperties.PlayerInitialLives;
             Dead = false;
 
-            CarreerPoints = 0;
+            CareerPoints = GameProperties.InitialCareerPoints;
 
             SpecialAbilities.SetWorld(this);
 

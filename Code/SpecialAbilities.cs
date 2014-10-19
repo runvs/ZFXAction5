@@ -60,7 +60,7 @@ namespace JamTemplate
         {
             if (_world != null)
             {
-                float careerPoints = _world.CarreerPoints;
+                float careerPoints = _world.CareerPoints;
 
                 IncreaseAbilities(careerPoints, timeObject);
                 //Console.WriteLine(_freezePrizonersLoader);
