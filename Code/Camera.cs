@@ -52,7 +52,7 @@ namespace JamTemplate
 
             CameraVelocity = newCamVelocity;
             camSpeed = (float)Math.Sqrt(CameraVelocity.X * CameraVelocity.X + CameraVelocity.Y * CameraVelocity.Y);
-            Console.WriteLine(camSpeed);
+            //Console.WriteLine(camSpeed);
 
             Vector2f newCamPos = CameraPosition + CameraVelocity * deltaT.ElapsedRealTime;
             if (newCamPos.X <= MinPosition.X)

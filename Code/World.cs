@@ -23,6 +23,8 @@ namespace JamTemplate
         public int Kills { get; set; }
         public bool Dead { get; private set; }
 
+        public int CarreerPoints { get; private set; }
+
         private bool _isMouseDown;
 
         #endregion Fields
@@ -61,6 +63,16 @@ namespace JamTemplate
             {
                 _isMouseDown = true;
             }
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Num1))
+            {
+                SpecialAbilities.FreezePrisoners();
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Num2))
+            {
+                SpecialAbilities.DamagePrisoners();
+            }
+
             else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && _isMouseDown)
             {
                 // Mouse up
@@ -70,6 +82,8 @@ namespace JamTemplate
                     JamUtilities.Mouse.MousePositionInWindow.X,
                     JamUtilities.Mouse.MousePositionInWindow.Y
                 );
+
+
 
                 if (mousePos.X >= 0 && mousePos.Y >= 0)
                 {
@@ -106,6 +120,8 @@ namespace JamTemplate
             ParticleManager.Update(timeObject);
             Camera.DoCameraMovement(timeObject);
 
+            SpecialAbilities.Update(timeObject);
+
             _level.Update(timeObject);
 
             List<Prisoner> newPrisonerList = new List<Prisoner>();
@@ -126,6 +142,7 @@ namespace JamTemplate
                     else
                     {
                         Kills += 1;
+                        CarreerPoints += GameProperties.CareerPointsGainForPrisonerKill;
                     }
                 }
             }
@@ -163,8 +180,10 @@ namespace JamTemplate
             }
 
             TowerBuilder.Draw(rw);
+            SpecialAbilities.Draw(rw);
 
             SmartText.DrawText("Lives: " + Lives, TextAlignment.LEFT, new Vector2f(10, 10), rw);
+            SmartText.DrawText("Career Points: " + CarreerPoints, TextAlignment.LEFT, new Vector2f(10, 35), rw);
 
 
             ParticleManager.Draw(rw);
@@ -180,6 +199,11 @@ namespace JamTemplate
             _level = LevelLoader.GetLevel(1, this);
             Lives = GameProperties.PlayerInitialLives;
             Dead = false;
+
+            CarreerPoints = 10;
+
+            SpecialAbilities.SetWorld(this);
+
         }
 
         #endregion Methods
@@ -187,6 +211,22 @@ namespace JamTemplate
         public void Spawn(Prisoner prisoner)
         {
             _prisonersList.Add(prisoner);
+        }
+
+        internal void FreezePrisoners()
+        {
+            foreach (var p in _prisonersList)
+            {
+                p.Freeze();
+            }
+        }
+
+        internal void DamageAllPrisoners()
+        {
+            foreach (var p in _prisonersList)
+            {
+                p.TakeDamage(p.Health * GameProperties.SpecialAbilitiesDamageFactor);
+            }
         }
     }
 }

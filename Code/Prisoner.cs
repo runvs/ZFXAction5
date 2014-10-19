@@ -36,6 +36,9 @@ namespace JamTemplate
 
         private SFML.Graphics.RectangleShape _healthShape;
 
+        public float FreezeinTimeRemaining { get; private set; }
+
+
 
         public Prisoner()
         {
@@ -101,16 +104,24 @@ namespace JamTemplate
             _healthShape.Position = GetOnScreenPosition() + new Vector2f(0, -2);
             // movement
             DoMovement(timeObject);
+            _sprite.Update(timeObject);
         }
 
         private void DoMovement(TimeObject timeObject)
         {
-            //Console.WriteLine(_path.Count);
-            movementTimer -= timeObject.ElapsedGameTime;
-            if (movementTimer <= 0)
+            if (FreezeinTimeRemaining >= 0)
             {
-                movementTimer = GameProperties.PrisonerMovementTimer;
-                MoveForward();
+                FreezeinTimeRemaining -= timeObject.ElapsedGameTime;
+            }
+            else
+            {
+                //Console.WriteLine(_path.Count);
+                movementTimer -= timeObject.ElapsedGameTime;
+                if (movementTimer <= 0)
+                {
+                    movementTimer = GameProperties.PrisonerMovementTimer;
+                    MoveForward();
+                }
             }
         }
 
@@ -142,10 +153,16 @@ namespace JamTemplate
 
         public void Draw(RenderWindow rw)
         {
+
             _sprite.Position = GetOnScreenPosition();
             _sprite.Draw((rw));
             rw.Draw(_healthShape);
         }
 
+        internal void Freeze()
+        {
+            FreezeinTimeRemaining = GameProperties.SpecialAbilitiesFreezeTime;
+            _sprite.Flash(Color.Blue, GameProperties.SpecialAbilitiesFreezeTime);
+        }
     }
 }
