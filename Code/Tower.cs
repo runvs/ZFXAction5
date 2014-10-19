@@ -119,7 +119,7 @@ namespace JamTemplate
 
             if (_attackTimerRemaining > 0)
             {
-                _attackTimerRemaining -= timeObject.ElapsedGameTime;
+                _attackTimerRemaining -= timeObject.ElapsedGameTime * (1.0f / (float)(Math.Sqrt(Level)));
             }
             else
             {

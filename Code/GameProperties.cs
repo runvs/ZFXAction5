@@ -52,7 +52,7 @@ namespace JamTemplate
 
         public static float SpecialAbilitiesDamageFactor
         {
-            get { return 0.125f; }
+            get { return 0.25f; }
         }
 
         public static float SpecialAbilitiesMaxValue
@@ -64,17 +64,17 @@ namespace JamTemplate
 
         public static float TowerMeleeAttackTime
         {
-            get { return 2.5f; }
+            get { return 1.5f; }
         }
 
         public static float TowerFreezeAttackTime
         {
-            get { return 2.5f; }
+            get { return 2.0f; }
         }
 
         public static float TowerSpashAttackTime
         {
-            get { return 2.5f; }
+            get { return 3.0f; }
         }
 
         public static float TowerNormalAttackTime
@@ -103,7 +103,7 @@ namespace JamTemplate
 
         public static float TowerMeleeAttackDamage
         {
-            get { return 5.0f; }
+            get { return 4.0f; }
         }
 
         public static float TowerNormalAttackDamage
@@ -114,11 +114,11 @@ namespace JamTemplate
 
         public static float TowerSplashAttackDamage
         {
-            get { return 3.0f; }
+            get { return 3.5f; }
         }
         public static float TowerFreezeAttackDamage
         {
-            get { return 0.5f; }
+            get { return 1.5f; }
         }
 
 
@@ -126,10 +126,10 @@ namespace JamTemplate
         {
             get { return 3.0f; }
         }
-        public static int TowerMeleeBaseCost { get { return 2; } }
-        public static int TowerNormalBaseCost { get { return 5; } }
+        public static int TowerMeleeBaseCost { get { return 3; } }
+        public static int TowerNormalBaseCost { get { return 6; } }
         public static int TowerSplashBaseCost { get { return 7; } }
-        public static int TowerFreezeBaseCost { get { return 9; } }
+        public static int TowerFreezeBaseCost { get { return 6; } }
 
         public static float TowerSpashDamageRange
         {
