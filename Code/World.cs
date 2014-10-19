@@ -92,7 +92,7 @@ namespace JamTemplate
             var mousePos = new Vector2f(
                 JamUtilities.Mouse.MousePositionInWindow.X,
                 JamUtilities.Mouse.MousePositionInWindow.Y
-                );
+            );
 
             if (mousePos.X >= 0 && mousePos.Y >= 0)
             {

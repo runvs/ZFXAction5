@@ -139,6 +139,62 @@ namespace JamTemplate
                 {
                     rw.Draw(_shape);
                 }
+
+                if (JamUtilities.Mouse.IsMouseInWindow)
+                {
+                    var mousePos = new Vector2f(
+                        JamUtilities.Mouse.MousePositionInWindow.X,
+                        JamUtilities.Mouse.MousePositionInWindow.Y
+                    );
+
+                    var rect = new FloatRect(bounds.Left, bounds.Top, GameProperties.TileSizeInPixel, bounds.Height);
+                    if (rect.Contains(mousePos.X, mousePos.Y))
+                    {
+                        SmartText.DrawText(
+                            string.Format("Costs: {0}", GameProperties.TowerMeleeBaseCost),
+                            TextAlignment.LEFT,
+                            new Vector2f(mousePos.X + 10, mousePos.Y),
+                            Color.White,
+                            rw
+                            );
+                    }
+
+                    rect = new FloatRect(bounds.Left + GameProperties.TileSizeInPixel, bounds.Top, GameProperties.TileSizeInPixel, bounds.Height);
+                    if (rect.Contains(mousePos.X, mousePos.Y))
+                    {
+                        SmartText.DrawText(
+                            string.Format("Costs: {0}", GameProperties.TowerNormalBaseCost),
+                            TextAlignment.LEFT,
+                            new Vector2f(mousePos.X + 10, mousePos.Y),
+                            Color.White,
+                            rw
+                            );
+                    }
+
+                    rect = new FloatRect(bounds.Left + GameProperties.TileSizeInPixel * 2, bounds.Top, GameProperties.TileSizeInPixel, bounds.Height);
+                    if (rect.Contains(mousePos.X, mousePos.Y))
+                    {
+                        SmartText.DrawText(
+                            string.Format("Costs: {0}", GameProperties.TowerSplashBaseCost),
+                            TextAlignment.LEFT,
+                            new Vector2f(mousePos.X + 10, mousePos.Y),
+                            Color.White,
+                            rw
+                            );
+                    }
+
+                    rect = new FloatRect(bounds.Left + GameProperties.TileSizeInPixel * 3, bounds.Top, GameProperties.TileSizeInPixel, bounds.Height);
+                    if (rect.Contains(mousePos.X, mousePos.Y))
+                    {
+                        SmartText.DrawText(
+                            string.Format("Costs: {0}", GameProperties.TowerFreezeBaseCost),
+                            TextAlignment.LEFT,
+                            new Vector2f(mousePos.X + 10, mousePos.Y),
+                            Color.White,
+                            rw
+                            );
+                    }
+                }
             }
 
             if (IsUpgradeMenuShown)
@@ -152,6 +208,27 @@ namespace JamTemplate
                 if (world.CareerPoints < AffectedTower.CalculateUpgradeCosts())
                 {
                     rw.Draw(_shape);
+                }
+
+                if (JamUtilities.Mouse.IsMouseInWindow)
+                {
+                    var mousePos = new Vector2f(
+                        JamUtilities.Mouse.MousePositionInWindow.X,
+                        JamUtilities.Mouse.MousePositionInWindow.Y
+                    );
+
+                    var rect = new FloatRect(bounds.Left, bounds.Top, GameProperties.TileSizeInPixel, bounds.Height);
+
+                    if (rect.Contains(mousePos.X, mousePos.Y))
+                    {
+                        SmartText.DrawText(
+                            string.Format("Costs: {0}", AffectedTower.CalculateUpgradeCosts()),
+                            TextAlignment.LEFT,
+                            new Vector2f(mousePos.X + 10, mousePos.Y),
+                            Color.White,
+                            rw
+                            );
+                    }
                 }
             }
         }

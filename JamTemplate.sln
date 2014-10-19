@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JamTemplate", "Code\JamTemplate.csproj", "{C9FA175F-8215-421A-9909-18C280B99837}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JamUtilities", "Lib\JamUtilities\JamUtilities\JamUtilities.csproj", "{FC7A5984-9B7D-494C-A49D-059DCABFB253}"
