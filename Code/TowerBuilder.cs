@@ -11,6 +11,7 @@ namespace JamTemplate
         public static bool IsUpgradeMenuShown { get; private set; }
         private static SmartSprite _buildMenuSprite = new SmartSprite("../GFX/buildMenu.png");
         private static SmartSprite _upgradeMenuSprite = new SmartSprite("../GFX/upgradeMenu.png");
+        private static RectangleShape _shape = new RectangleShape(new Vector2f(32, 32));
         public static Tile AffectedTile { get; private set; }
 
         public static void ShowBuildMenu(Tile tile)
@@ -46,7 +47,7 @@ namespace JamTemplate
             mousePos *= GameProperties.TileSizeInPixel;
 
             var bounds = _buildMenuSprite.Sprite.GetGlobalBounds();
-            if (bounds.Contains(mousePos.X, mousePos.Y))
+            if (bounds.Contains(mousePos.X - Camera.CameraPosition.X, mousePos.Y - Camera.CameraPosition.Y))
             {
                 // The player clicked inside the build menu
                 var selectedPosition = (int)Math.Round(
@@ -78,7 +79,7 @@ namespace JamTemplate
             mousePos *= GameProperties.TileSizeInPixel;
 
             var bounds = _upgradeMenuSprite.Sprite.GetGlobalBounds();
-            if (bounds.Contains(mousePos.X, mousePos.Y))
+            if (bounds.Contains(mousePos.X - Camera.CameraPosition.X, mousePos.Y - Camera.CameraPosition.Y))
             {
                 // The player clicked inside the upgrade menu
                 var selectedPosition = (int)Math.Round(
