@@ -293,7 +293,7 @@ namespace JamTemplate
                 p.Draw(rw);
             }
 
-            TowerBuilder.Draw(rw);
+            TowerBuilder.Draw(rw, this);
             SpecialAbilities.Draw(rw);
 
             SmartText.DrawText("Lives: " + Lives, TextAlignment.LEFT, new Vector2f(10, 10), rw);
@@ -316,6 +316,7 @@ namespace JamTemplate
             Dead = false;
 
             CareerPoints = GameProperties.InitialCareerPoints;
+            TowerBuilder.HideMenus();
 
             SpecialAbilities.SetWorld(this);
 
@@ -326,7 +327,6 @@ namespace JamTemplate
             //
             _projectiles.Add(p);
         }
-
 
         public void Spawn(Prisoner prisoner)
         {

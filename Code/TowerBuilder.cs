@@ -11,8 +11,14 @@ namespace JamTemplate
         public static bool IsUpgradeMenuShown { get; private set; }
         private static SmartSprite _buildMenuSprite = new SmartSprite("../GFX/buildMenu.png");
         private static SmartSprite _upgradeMenuSprite = new SmartSprite("../GFX/upgradeMenu.png");
-        private static RectangleShape _shape = new RectangleShape(new Vector2f(32, 32));
+        private static RectangleShape _shape = new RectangleShape(new Vector2f(GameProperties.TileSizeInPixel, GameProperties.TileSizeInPixel));
         public static Tile AffectedTile { get; private set; }
+        public static Tower AffectedTower { get; private set; }
+
+        static TowerBuilder()
+        {
+            _shape.FillColor = new Color(32, 32, 32, 200);
+        }
 
         public static void ShowBuildMenu(Tile tile)
         {
@@ -100,15 +106,43 @@ namespace JamTemplate
             AffectedTile = null;
         }
 
-        public static void Draw(RenderWindow rw)
+        public static void Draw(RenderWindow rw, World world)
         {
             if (IsBuildMenuShown)
             {
+                _buildMenuSprite.Position = AffectedTile.GetOnScreenPosition();
                 _buildMenuSprite.Draw(rw);
+
+                var bounds = _buildMenuSprite.Sprite.GetGlobalBounds();
+
+                _shape.Position = new Vector2f(bounds.Left + GameProperties.TileSizeInPixel * 0, bounds.Top);
+                if (world.CareerPoints < GameProperties.TowerMeleeBaseCost)
+                {
+                    rw.Draw(_shape);
+                }
+
+                _shape.Position = new Vector2f(bounds.Left + GameProperties.TileSizeInPixel * 1, bounds.Top);
+                if (world.CareerPoints < GameProperties.TowerNormalBaseCost)
+                {
+                    rw.Draw(_shape);
+                }
+
+                _shape.Position = new Vector2f(bounds.Left + GameProperties.TileSizeInPixel * 2, bounds.Top);
+                if (world.CareerPoints < GameProperties.TowerSplashBaseCost)
+                {
+                    rw.Draw(_shape);
+                }
+
+                _shape.Position = new Vector2f(bounds.Left + GameProperties.TileSizeInPixel * 3, bounds.Top);
+                if (world.CareerPoints < GameProperties.TowerFreezeBaseCost)
+                {
+                    rw.Draw(_shape);
+                }
             }
 
             if (IsUpgradeMenuShown)
             {
+                _upgradeMenuSprite.Position = AffectedTile.GetOnScreenPosition();
                 _upgradeMenuSprite.Draw(rw);
             }
         }
