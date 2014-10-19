@@ -73,7 +73,7 @@ namespace JamTemplate
             CheckIsDead();
 
             _sprite.Flash(Color.Red, 0.5f);
-            _sprite.Shake(0.5f, 0.05f, 2.0f);
+            _sprite.Shake(0.25f, 0.05f, 1.0f);
         }
 
         private void CheckIsDead()

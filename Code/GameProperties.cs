@@ -121,9 +121,6 @@ namespace JamTemplate
             get { return 0.5f; }
         }
 
-
-
-
         public static float ProjectileDistanceToTargetMin
         {
             get { return 5.5f; }
@@ -137,5 +134,10 @@ namespace JamTemplate
         public static int TowerNormalBaseCost { get { return 5; } }
         public static int TowerSplashBaseCost { get { return 7; } }
         public static int TowerFreezeBaseCost { get { return 9; } }
+
+        public static float TowerSpashDamageRange
+        {
+            get { return 1.9f; }
+        }
     }
 }

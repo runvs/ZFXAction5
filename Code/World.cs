@@ -194,7 +194,7 @@ namespace JamTemplate
             }
             _prisonersList = newPrisonerList;
 
-            Console.WriteLine(_projectiles.Count);
+            //Console.WriteLine(_projectiles.Count);
             List<Projectile> newProjectileList = new List<Projectile>();
             foreach (var p in _projectiles)
             {
@@ -207,6 +207,10 @@ namespace JamTemplate
                 else
                 {
                     p._target.TakeDamage(p.Damage);
+                    if (p._tower.Type == TowerType.Splash)
+                    {
+                        DoSplashDamage(p._target, p);
+                    }
                 }
             }
             _projectiles = newProjectileList;
@@ -215,6 +219,25 @@ namespace JamTemplate
             foreach (var tower in _towers)
             {
                 tower.Update(timeObject);
+            }
+        }
+
+        private void DoSplashDamage(Prisoner prisoner, Projectile proj)
+        {
+            if (proj._tower.Type == TowerType.Splash)
+            {
+                foreach (var p in _prisonersList)
+                {
+                    if (p != prisoner)
+                    {
+                        Vector2i distanceInTiles = p.PositionInTiles - prisoner.PositionInTiles;
+                        float dist = (float)(Math.Sqrt((distanceInTiles.X * distanceInTiles.X + distanceInTiles.Y * distanceInTiles.Y)));
+                        if (dist <= GameProperties.TowerSpashDamageRange)
+                        {
+                            p.TakeDamage(proj.Damage);
+                        }
+                    }
+                }
             }
         }
 
