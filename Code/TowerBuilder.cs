@@ -154,7 +154,7 @@ namespace JamTemplate
                             string.Format("Costs: {0}", GameProperties.TowerMeleeBaseCost),
                             TextAlignment.LEFT,
                             new Vector2f(mousePos.X + 10, mousePos.Y),
-                            Color.White,
+                            new Color(52, 67, 6),
                             rw
                             );
                     }
@@ -166,7 +166,7 @@ namespace JamTemplate
                             string.Format("Costs: {0}", GameProperties.TowerNormalBaseCost),
                             TextAlignment.LEFT,
                             new Vector2f(mousePos.X + 10, mousePos.Y),
-                            Color.White,
+                            new Color(52, 67, 6),
                             rw
                             );
                     }
@@ -178,7 +178,7 @@ namespace JamTemplate
                             string.Format("Costs: {0}", GameProperties.TowerSplashBaseCost),
                             TextAlignment.LEFT,
                             new Vector2f(mousePos.X + 10, mousePos.Y),
-                            Color.White,
+                            new Color(52, 67, 6),
                             rw
                             );
                     }
@@ -190,7 +190,7 @@ namespace JamTemplate
                             string.Format("Costs: {0}", GameProperties.TowerFreezeBaseCost),
                             TextAlignment.LEFT,
                             new Vector2f(mousePos.X + 10, mousePos.Y),
-                            Color.White,
+                            new Color(52, 67, 6),
                             rw
                             );
                     }
@@ -225,7 +225,7 @@ namespace JamTemplate
                             string.Format("Costs: {0}", AffectedTower.CalculateUpgradeCosts()),
                             TextAlignment.LEFT,
                             new Vector2f(mousePos.X + 10, mousePos.Y),
-                            Color.White,
+                            new Color(52, 67, 6),
                             rw
                             );
                     }
