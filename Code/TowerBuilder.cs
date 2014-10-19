@@ -34,10 +34,12 @@ namespace JamTemplate
                 {
                     case 0:
                         return TowerType.Melee;
-                    //case 1:
-                    //   return TowerType.CloseRange;
-                    //case 2:
-                    //   return TowerType.LongRange;
+                    case 1:
+                        return TowerType.Normal;
+                    case 2:
+                        return TowerType.Splash;
+                    case 3:
+                        return TowerType.Freeze;
 
                     default:
                         Console.WriteLine("Something bad happened...");
