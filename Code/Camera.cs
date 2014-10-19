@@ -10,7 +10,7 @@ namespace JamTemplate
     {
         public static SFML.Window.Vector2f CameraPosition { get; set; }
         public static SFML.Window.Vector2f CameraVelocity { get; private set; }
-        public static float CameraMaxVelocity = 200.0f;
+        public static float CameraMaxVelocity = 300.0f;
 
         public static Vector2f MinPosition;
         public static Vector2f MaxPosition;

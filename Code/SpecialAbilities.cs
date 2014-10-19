@@ -90,6 +90,15 @@ namespace JamTemplate
             }
         }
 
+        internal static void MoneyAbility()
+        {
+            if (_xxxPrisonersLoader >= GameProperties.SpecialAbilitiesMaxValue)
+            {
+                _xxxPrisonersLoader = 0;
+                _world.MoneyAbility();
+            }
+        }
+
 
         private static void IncreaseAbilities(float careerPoints, TimeObject timeObject)
         {
@@ -116,6 +125,9 @@ namespace JamTemplate
         }
 
 
+
+
+
         public static void Draw(RenderWindow rw)
         {
             _sprite.Draw(rw);
@@ -129,5 +141,7 @@ namespace JamTemplate
             rw.Draw(_damageShape);
             rw.Draw(_xxxShape);
         }
+
+
     }
 }

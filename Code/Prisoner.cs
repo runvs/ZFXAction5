@@ -106,7 +106,7 @@ namespace JamTemplate
         public void Update(TimeObject timeObject)
         {
             _healthShape.Scale = new Vector2f(Health / HealthMax, 1);
-            _healthShape.Position = GetOnScreenPosition() + new Vector2f(0, -2);
+            _healthShape.Position = GetOnScreenSubTilePosition() + new Vector2f(0, -2);
             // movement
             DoMovement(timeObject);
             _sprite.Update(timeObject);
@@ -156,12 +156,25 @@ namespace JamTemplate
             return AbsolutePositionInPixel - Camera.CameraPosition;
         }
 
+        public Vector2f GetOnScreenSubTilePosition()
+        {
+            Vector2f movedir = Direction.GetDirectionFloatFromEnum(currentMovementDirection);
+
+            float movtim = GameProperties.PrisonerMovementTimer - movementTimer;
+
+            Vector2f subTilePosition =
+              GameProperties.TileSizeInPixel * movedir *
+                                ((movtim > 0) ? movtim / GameProperties.PrisonerMovementTimer : 0); // kinda crappy code, but it looks cool
+
+            return GetOnScreenPosition() + subTilePosition;
+        }
+
+
         public void Draw(RenderWindow rw)
         {
+            _sprite.Position = GetOnScreenSubTilePosition();
 
-            _sprite.Position = GetOnScreenPosition();
             _sprite.Draw((rw));
-
         }
 
         public void DrawHealthShape(RenderWindow rw)

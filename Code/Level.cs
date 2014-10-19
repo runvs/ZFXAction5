@@ -18,7 +18,14 @@ namespace JamTemplate
 
         public Tile GetTileAt(int x, int y)
         {
-            return LevelTiles[x, y];
+            if (x >= 0 && x < GameProperties.LevelSize)
+            {
+                if (x >= 0 && x < GameProperties.LevelSize)
+                {
+                    return LevelTiles[x, y];
+                }
+            }
+            return null;
         }
 
         public Tile GetTileAt(Vector2i position)

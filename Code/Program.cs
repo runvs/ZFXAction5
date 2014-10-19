@@ -19,7 +19,7 @@ namespace JamTemplate
 
         static void Main(string[] args)
         {
-            var applicationWindow = new RenderWindow(new VideoMode(800, 600, 32), "$WindowTitle$");
+            var applicationWindow = new RenderWindow(new VideoMode(800, 600, 32), "Yet Another Tower Defence Game");
 
             applicationWindow.SetFramerateLimit(60);
             applicationWindow.SetVerticalSyncEnabled(true);

@@ -41,7 +41,7 @@ namespace JamTemplate
 
         public static float SpecialAbilitiesCareerPointsScalingXXX
         {
-            get { return 0.125f; }
+            get { return 0.275f; }
         }
 
 
@@ -143,6 +143,11 @@ namespace JamTemplate
         public static float TowerFreezeFreezeTime
         {
             get { return 2.5f; }
+        }
+
+        public static float CameraMoveDelta
+        {
+            get { return 5.5f; }
         }
     }
 }

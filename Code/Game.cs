@@ -143,11 +143,12 @@ namespace JamTemplate
 
         private void DrawMenu(RenderWindow rw)
         {
-            SmartText.DrawText("$GameTitle$", TextAlignment.MID, new Vector2f(400.0f, 150.0f), 1.5f, rw);
+            SmartText.DrawText("Yet Another Tower Defence Game", TextAlignment.MID, new Vector2f(400.0f, 150.0f), 1.5f, rw);
 
             SmartText.DrawText("Start [Return]", TextAlignment.MID, new Vector2f(400.0f, 250.0f), rw);
-            SmartText.DrawText("W A S D & LShift", TextAlignment.MID, new Vector2f(530.0f, 340.0f), rw);
-            SmartText.DrawText("Arrows & RCtrl", TextAlignment.MID, new Vector2f(180.0f, 340.0f), rw);
+            SmartText.DrawText("Arrows or WASD for Camera", TextAlignment.MID, new Vector2f(400.0f, 340.0f), rw);
+            SmartText.DrawText("Mouse for Building Towers", TextAlignment.MID, new Vector2f(400.0f, 375.0f), rw);
+            SmartText.DrawText("1 2 3 for special abilities", TextAlignment.MID, new Vector2f(400.0f, 410.0f), rw);
 
             SmartText.DrawText("[C]redits", TextAlignment.LEFT, new Vector2f(30.0f, 550.0f), rw);
             ScreenEffects.GetStaticEffect("vignette").Draw(rw);
@@ -156,10 +157,10 @@ namespace JamTemplate
         private void DrawCredits(RenderWindow rw)
         {
 
-            SmartText.DrawText("$GameTitle$", TextAlignment.MID, new Vector2f(400.0f, 20.0f), 1.5f, rw);
+            SmartText.DrawText("Yet Another Tower Defence Game", TextAlignment.MID, new Vector2f(400.0f, 20.0f), 1.5f, rw);
 
             SmartText.DrawText("A Game by", TextAlignment.MID, new Vector2f(400.0f, 100.0f), 0.75f, rw);
-            SmartText.DrawText("$DeveloperNames$", TextAlignment.MID, new Vector2f(400.0f, 135.0f), rw);
+            SmartText.DrawText("Julian Dinges and Simon Weis", TextAlignment.MID, new Vector2f(400.0f, 135.0f), rw);
 
             SmartText.DrawText("Visual Studio 2012 \t C#", TextAlignment.MID, new Vector2f(400, 170), 0.75f, rw);
             SmartText.DrawText("aseprite \t SFML.NET 2.1", TextAlignment.MID, new Vector2f(400, 200), 0.75f, rw);
@@ -168,7 +169,7 @@ namespace JamTemplate
             SmartText.DrawText("Thanks to", TextAlignment.MID, new Vector2f(400, 350), 0.75f, rw);
             SmartText.DrawText("Families & Friends for their great support", TextAlignment.MID, new Vector2f(400, 375), 0.75f, rw);
 
-            SmartText.DrawText("Created $Date$", TextAlignment.MID, new Vector2f(400.0f, 500.0f), 0.75f, rw);
+            SmartText.DrawText("Created 2014-10-19 for ZFXAction 5", TextAlignment.MID, new Vector2f(400.0f, 500.0f), 0.75f, rw);
             ScreenEffects.GetStaticEffect("vignette").Draw(rw);
         }
 

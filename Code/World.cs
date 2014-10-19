@@ -64,21 +64,21 @@ namespace JamTemplate
             {
                 //ScreenEffects.ScreenFlash(SFML.Graphics.Color.Black, 4.0f);
             }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Left) || Keyboard.IsKeyPressed(Keyboard.Key.A))
             {
-                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(-5.0f, 0);
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(-GameProperties.CameraMoveDelta, 0);
             }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Right) || Keyboard.IsKeyPressed(Keyboard.Key.D))
             {
-                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(5.0f, 0);
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(GameProperties.CameraMoveDelta, 0);
             }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Up) || Keyboard.IsKeyPressed(Keyboard.Key.W))
             {
-                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(0, -5.0f);
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(0, -GameProperties.CameraMoveDelta);
             }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Down) || Keyboard.IsKeyPressed(Keyboard.Key.S))
             {
-                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(0, 5.0f);
+                Camera.ShouldBePosition = Camera.ShouldBePosition + new Vector2f(0, GameProperties.CameraMoveDelta);
             }
 
             if (Mouse.IsButtonPressed(Mouse.Button.Left))
@@ -96,7 +96,7 @@ namespace JamTemplate
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.Num3))
             {
-                //SpecialAbilities.DamagePrisoners();
+                SpecialAbilities.MoneyAbility();
             }
             else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && _isMouseDown)
             {
@@ -400,6 +400,12 @@ namespace JamTemplate
 
         #endregion Methods
 
-
+        internal void MoneyAbility()
+        {
+            float increase = CareerPoints * 0.05f;
+            if (increase <= 1)
+                increase = 1;
+            CareerPoints += (int)(increase);
+        }
     }
 }
