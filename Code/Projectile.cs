@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JamUtilities;
+using JamUtilities.Particles;
+using SFML.Graphics;
 using SFML.Window;
 
 namespace JamTemplate
@@ -30,17 +32,17 @@ namespace JamTemplate
             if (tower.Type == TowerType.Normal)
             {
                 _sprite = new SmartSprite("../GFX/projectileNormal.png");
-                Damage = GameProperties.TowerNormalAttackDamage;   // TODO multiply Tower's Level
+                Damage = GameProperties.TowerNormalAttackDamage * (float)(Math.Sqrt(tower.Level));   // TODO multiply Tower's Level
             }
             else if (tower.Type == TowerType.Freeze)
             {
                 _sprite = new SmartSprite("../GFX/projectileFreeze.png");
-                Damage = GameProperties.TowerFreezeAttackDamage; // TODO multiply Tower's Level
+                Damage = GameProperties.TowerFreezeAttackDamage * (float)(Math.Sqrt(tower.Level)); // TODO multiply Tower's Level
             }
             else if (tower.Type == TowerType.Splash)
             {
                 _sprite = new SmartSprite("../GFX/projectileSplash.png");
-                Damage = GameProperties.TowerSplashAttackDamage; // TODO multiply Tower's Level
+                Damage = GameProperties.TowerSplashAttackDamage * (float)(Math.Sqrt(tower.Level)); // TODO multiply Tower's Level
             }
             else
             {
@@ -80,6 +82,10 @@ namespace JamTemplate
             float dist = (float)Math.Sqrt(distance.X * distance.X + distance.Y * distance.Y);
             Vector2f direction = distance / dist;
 
+            if (_tower.Type == TowerType.Freeze)
+            {
+                ParticleManager.SpawnSmokeCloud(Position, 20, 5, Color.White, 0.5f);
+            }
 
 
             _velocity = direction * GameProperties.ProjectileSpeed;

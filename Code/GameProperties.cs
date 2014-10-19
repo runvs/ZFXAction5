@@ -36,12 +36,12 @@ namespace JamTemplate
 
         public static float SpecialAbilitiesCareerPointsScalingDamage
         {
-            get { return 1.15f; }
+            get { return 0.15f; }
         }
 
         public static float SpecialAbilitiesCareerPointsScalingXXX
         {
-            get { return 0.25f; }
+            get { return 0.125f; }
         }
 
 
@@ -114,7 +114,7 @@ namespace JamTemplate
 
         public static float TowerSplashAttackDamage
         {
-            get { return 1.0f; }
+            get { return 3.0f; }
         }
         public static float TowerFreezeAttackDamage
         {

@@ -29,22 +29,196 @@ namespace JamTemplate
         private static Level GetLevel1(World world)
         {
             var level = new Level();
+            // start room
+            for (int i = 1; i != 4; ++i)
+            {
+                for (int j = 1; j != 4; ++j)
+                {
+                    level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Floor };
+                }
+            }
 
-            // walls around the whole level
-            for (int i = 0; i != GameProperties.LevelSize; ++i)
+            for (int i = 0; i != 15; ++i)
             {
                 int j = 0;
                 level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Wall };
-                j = GameProperties.LevelSize - 1;
+                level.LevelTiles[j, i] = new Tile { Position = new Vector2i(j, i), Type = TileType.Wall };
+            }
+
+            for (int i = 4; i != 13; ++i)
+            {
+                int j = 2;
+                level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Floor };
+                level.LevelTiles[j, i] = new Tile { Position = new Vector2i(j, i), Type = TileType.Floor };
+            }
+
+            for (int i = 2; i != 17; ++i)
+            {
+                int j = 13;
+                level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Floor };
+                level.LevelTiles[j, i] = new Tile { Position = new Vector2i(j, i), Type = TileType.Floor };
+            }
+
+            for (int i = 13; i != 17; ++i)
+            {
+                int j = 17;
+                level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Floor };
+                level.LevelTiles[j, i] = new Tile { Position = new Vector2i(j, i), Type = TileType.Floor };
+            }
+
+            for (int i = 14; i != 17; ++i)
+            {
+                for (int j = 14; j != 17; ++j)
+                {
+                    level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Wall };
+                }
+            }
+
+            // end room
+            for (int i = 16; i != 19; ++i)
+            {
+                for (int j = 16; j != 19; ++j)
+                {
+                    level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Floor };
+                }
+            }
+
+
+
+            for (int i = 4; i != 13; ++i)
+            {
+                int j = 1;
+                level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Wall };
+                j = 3;
+                level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Wall };
+                j = 12;
+                level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Wall };
+                j = 14;
                 level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Wall };
             }
-            for (int i = 1; i != GameProperties.LevelSize - 1; ++i)
+
+            for (int i = 4; i != 13; ++i)
             {
-                int j = 0;
+                int j = 12;
                 level.LevelTiles[j, i] = new Tile { Position = new Vector2i(j, i), Type = TileType.Wall };
-                j = GameProperties.LevelSize - 1;
+                j = 14;
                 level.LevelTiles[j, i] = new Tile { Position = new Vector2i(j, i), Type = TileType.Wall };
+                j = 1;
+                level.LevelTiles[j, i] = new Tile { Position = new Vector2i(j, i), Type = TileType.Wall };
+                j = 3;
+                level.LevelTiles[j, i] = new Tile { Position = new Vector2i(j, i), Type = TileType.Wall };
+
             }
+
+            for (int i = 1; i != 4; ++i)
+            {
+                int j = 14;
+                level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Wall };
+                level.LevelTiles[j, i] = new Tile { Position = new Vector2i(j, i), Type = TileType.Wall };
+
+            }
+
+            for (int i = 4; i != 13; ++i)
+            {
+                for (int j = 4; j != 13; ++j)
+                {
+                    level.LevelTiles[i, j] = new Tile { Position = new Vector2i(i, j), Type = TileType.Wall };
+                }
+            }
+
+            level.LevelTiles[13, 1] = new Tile { Position = new Vector2i(13, 1), Type = TileType.Buildzone };
+            level.LevelTiles[1, 13] = new Tile { Position = new Vector2i(1, 13), Type = TileType.Buildzone };
+
+            level.LevelTiles[12, 3] = new Tile { Position = new Vector2i(12, 3), Type = TileType.Buildzone };
+            level.LevelTiles[3, 12] = new Tile { Position = new Vector2i(3, 12), Type = TileType.Buildzone };
+
+            level.LevelTiles[12, 12] = new Tile { Position = new Vector2i(12, 12), Type = TileType.Buildzone };
+            level.LevelTiles[14, 14] = new Tile { Position = new Vector2i(14, 14), Type = TileType.Buildzone };
+
+            var path = new List<eDirection>
+            {
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,  
+            };
+            var spawner = new PrisonerSpawner(world, new Vector2i(2, 2), 4f);
+            spawner.SetPath(path);
+            level.Spawner.Add(spawner);
+
+            var path2 = new List<eDirection>
+            {
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,  
+            };
+            var spawner2 = new PrisonerSpawner(world, new Vector2i(2, 2), 4f);
+            spawner2.SetPath(path2);
+            spawner2.SetOffset(2.5f);
+            level.Spawner.Add(spawner2);
+
+
+            return level;
+        }
+
+        private static Level GetLevel2(World world)
+        {
+            var level = new Level();
 
             // starting pos Enemies
 
@@ -163,72 +337,62 @@ namespace JamTemplate
             level.LevelTiles[7, 9] = new Tile { Position = new Vector2i(7, 9), Type = TileType.Buildzone };
             level.LevelTiles[14, 9] = new Tile { Position = new Vector2i(14, 9), Type = TileType.Buildzone };
 
-            var path = new List<eDirection>();
-
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-
-            path.Add(eDirection.NORTH);
-            path.Add(eDirection.NORTH);
-            path.Add(eDirection.NORTH);
-
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-
-            path.Add(eDirection.SOUTH);
-            path.Add(eDirection.SOUTH);
-            path.Add(eDirection.SOUTH);
-
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
-            path.Add(eDirection.EAST);
+            var path = new List<eDirection>
+            {
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.NORTH,
+                eDirection.NORTH,
+                eDirection.NORTH,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST
+            };
 
             var spawner = new PrisonerSpawner(world, new Vector2i(3, 7), 5f);
             spawner.SetPath(path);
             level.Spawner.Add(spawner);
 
 
-
-            var path2 = new List<eDirection>();
-
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-
-            path2.Add(eDirection.SOUTH);
-            path2.Add(eDirection.SOUTH);
-            path2.Add(eDirection.SOUTH);
-
-
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-
-
-            path2.Add(eDirection.NORTH);
-            path2.Add(eDirection.NORTH);
-            path2.Add(eDirection.NORTH);
-
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-            path2.Add(eDirection.EAST);
-
+            var path2 = new List<eDirection>
+            {
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.SOUTH,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.NORTH,
+                eDirection.NORTH,
+                eDirection.NORTH,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST,
+                eDirection.EAST
+            };
 
 
             var spawner2 = new PrisonerSpawner(world, new Vector2i(3, 7), 5f);
@@ -238,11 +402,6 @@ namespace JamTemplate
 
 
             return level;
-        }
-
-        private static Level GetLevel2(World world)
-        {
-            throw new NotImplementedException();
         }
 
         private static Level GetLevel3(World world)

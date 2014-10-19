@@ -78,7 +78,7 @@ namespace JamTemplate
 
         private void CheckIsDead()
         {
-            if (Health <= 0)
+            if (Health < 1)
             {
                 dead = true;
             }
@@ -91,7 +91,6 @@ namespace JamTemplate
 
         public void GetInput()
         {
-            //throw new NotImplementedException();
             // do not receive input
         }
 

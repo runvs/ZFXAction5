@@ -98,7 +98,7 @@ namespace JamTemplate
             _attackTimerRemaining = _attackTimerMax;
             if (Type == TowerType.Melee)
             {
-                target.TakeDamage(GameProperties.TowerMeleeAttackDamage);
+                target.TakeDamage(GameProperties.TowerMeleeAttackDamage * (float)(Math.Sqrt(Level)));
             }
             else if (Type == TowerType.Normal || Type == TowerType.Splash || Type == TowerType.Freeze)
             {

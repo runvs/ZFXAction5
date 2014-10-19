@@ -101,6 +101,11 @@ namespace JamTemplate
 
                 var tile = _level.GetTileAt(mousePos);
 
+                if (tile == null)
+                {
+                    return;
+                }
+
                 if (tile.Type == TileType.Buildzone)
                 {
                     TowerBuilder.ShowBuildMenu(tile);
@@ -179,6 +184,7 @@ namespace JamTemplate
             SpriteTrail.Update(timeObject);
             ParticleManager.Update(timeObject);
             Camera.DoCameraMovement(timeObject);
+            ParticleManager.GlobalPositionOffset = Camera.CameraPosition;
 
             SpecialAbilities.Update(timeObject);
 
@@ -269,7 +275,7 @@ namespace JamTemplate
 
         public void Draw(RenderWindow rw)
         {
-            rw.Clear(Color.Blue);
+            rw.Clear(Color.Black);
 
 
             _level.Draw(rw);
