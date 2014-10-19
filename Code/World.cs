@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using JamUtilities;
+﻿using JamUtilities;
 using JamUtilities.Particles;
 using JamUtilities.ScreenEffects;
 using SFML.Graphics;
 using SFML.Window;
+using System.Collections.Generic;
 using Mouse = SFML.Window.Mouse;
 
 // ReSharper disable once SuggestUseVarKeywordEvident
@@ -17,6 +16,7 @@ namespace JamTemplate
         #region Fields
 
         private List<Prisoner> _prisonersList;
+        private List<Tower> _towers;
         private Level _level;
 
         private int Lives { get; set; }
@@ -71,19 +71,30 @@ namespace JamTemplate
                     JamUtilities.Mouse.MousePositionInWindow.Y
                 );
 
-                mousePos += Camera.CameraPosition;
-                mousePos /= GameProperties.TileSizeInPixel;
-
-                var tile = _level.GetTileAt(mousePos);
-                Console.WriteLine(tile.Type);
-
-                if (tile.Type == TileType.Buildzone)
+                if (mousePos.X >= 0 && mousePos.Y >= 0)
                 {
-                    TowerBuilder.ShowBuildMenu(tile);
-                }
-                else
-                {
-                    TowerBuilder.HideBuildMenu();
+                    mousePos += Camera.CameraPosition;
+                    mousePos /= GameProperties.TileSizeInPixel;
+
+                    var tile = _level.GetTileAt(mousePos);
+
+                    if (tile.Type == TileType.Buildzone)
+                    {
+                        TowerBuilder.ShowBuildMenu(tile);
+                    }
+                    else
+                    {
+                        // We need to check here if the player clicked inside
+                        // the build window.
+                        var selectedTower = TowerBuilder.ClickedInsideBuildMenu(mousePos);
+
+                        if (selectedTower != TowerType.None)
+                        {
+                            _towers.Add(new Tower(selectedTower, tile.Position));
+                        }
+
+                        TowerBuilder.HideBuildMenu();
+                    }
                 }
             }
         }
@@ -119,6 +130,11 @@ namespace JamTemplate
                 }
             }
             _prisonersList = newPrisonerList;
+
+            foreach (var tower in _towers)
+            {
+                tower.Update(timeObject);
+            }
         }
 
         private void CheckPlayerDead()
@@ -141,6 +157,11 @@ namespace JamTemplate
                 p.Draw(rw);
             }
 
+            foreach (var tower in _towers)
+            {
+                tower.Draw(rw);
+            }
+
             TowerBuilder.Draw(rw);
 
             SmartText.DrawText("Lives: " + Lives, TextAlignment.LEFT, new Vector2f(10, 10), rw);
@@ -154,6 +175,8 @@ namespace JamTemplate
         private void InitGame()
         {
             _prisonersList = new List<Prisoner>();
+            _towers = new List<Tower>();
+
             _level = LevelLoader.GetLevel(1, this);
             Lives = GameProperties.PlayerInitialLives;
             Dead = false;
@@ -161,14 +184,9 @@ namespace JamTemplate
 
         #endregion Methods
 
-
         public void Spawn(Prisoner prisoner)
         {
             _prisonersList.Add(prisoner);
         }
-
-
-
-
     }
 }

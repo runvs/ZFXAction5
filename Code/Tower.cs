@@ -1,7 +1,7 @@
-﻿using System;
-using JamUtilities;
+﻿using JamUtilities;
 using SFML.Graphics;
 using SFML.Window;
+using System;
 
 namespace JamTemplate
 {
@@ -31,6 +31,8 @@ namespace JamTemplate
                     _sprite = new SmartSprite("../GFX/towerLongRange.png");
                     break;
             }
+
+            _sprite.Position = new Vector2f(Position.X * GameProperties.TileSizeInPixel, Position.Y * GameProperties.TileSizeInPixel);
         }
 
         public bool IsDead()
@@ -45,17 +47,16 @@ namespace JamTemplate
 
         public void Update(TimeObject timeObject)
         {
-            throw new NotImplementedException();
         }
 
         public void Draw(RenderWindow rw)
         {
-            throw new NotImplementedException();
+            _sprite.Draw(rw);
         }
     }
 
     public enum TowerType
     {
-        Melee, CloseRange, LongRange
+        Melee, CloseRange, LongRange, None
     }
 }
