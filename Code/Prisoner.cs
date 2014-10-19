@@ -153,6 +153,11 @@ namespace JamTemplate
 
             _sprite.Position = GetOnScreenPosition();
             _sprite.Draw((rw));
+
+        }
+
+        public void DrawHealthShape(RenderWindow rw)
+        {
             rw.Draw(_healthShape);
         }
 

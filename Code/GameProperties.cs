@@ -61,5 +61,51 @@ namespace JamTemplate
         }
 
 
+
+        public static float TowerMeleeAttackTime
+        {
+            get { return 2.5f; }
+        }
+
+        public static float TowerFreezeAttackTime
+        {
+            get { return 2.5f; }
+        }
+
+        public static float TowerSpashAttackTime
+        {
+            get { return 2.5f; }
+        }
+
+        public static float TowerNormalAttackTime
+        {
+            get { return 2.5f; }
+        }
+
+        public static float TowerMeleeRange
+        {
+            get { return 1.9f; }
+        }
+
+        public static float TowerNormalRange
+        {
+            get { return 4.0f; }
+        }
+        public static float TowerFreezeRange
+        {
+            get { return 4.0f; }
+        }
+
+        public static float TowerSpashRange
+        {
+            get { return 3.0f; }
+        }
+
+        public static float TowerMeleeAttackDamage
+        {
+            get { return 5.0f; }
+        }
+
+
     }
 }

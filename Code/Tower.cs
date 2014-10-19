@@ -12,8 +12,16 @@ namespace JamTemplate
 
         private SmartSprite _sprite;
 
-        public Tower(TowerType type, Vector2i tilePosition)
+        private float _attackTimerRemaining;
+        private float _attackTimerMax;
+        private World _world;
+
+        private float _towerRange;
+
+
+        public Tower(TowerType type, Vector2i tilePosition, World world)
         {
+            _world = world;
             Type = type;
             Position = tilePosition;
 
@@ -21,18 +29,26 @@ namespace JamTemplate
             {
                 case TowerType.Melee:
                     _sprite = new SmartSprite("../GFX/towerMelee.png");
+                    _attackTimerRemaining = _attackTimerMax = GameProperties.TowerMeleeAttackTime;
+                    _towerRange = GameProperties.TowerMeleeRange;
                     break;
 
                 case TowerType.Normal:
                     _sprite = new SmartSprite("../GFX/towerNormal.png");
+                    _attackTimerRemaining = _attackTimerMax = GameProperties.TowerNormalAttackTime;
+                    _towerRange = GameProperties.TowerNormalRange;
                     break;
 
                 case TowerType.Splash:
                     _sprite = new SmartSprite("../GFX/towerSplash.png");
+                    _attackTimerRemaining = _attackTimerMax = GameProperties.TowerSpashAttackTime;
+                    _towerRange = GameProperties.TowerSpashRange;
                     break;
 
                 case TowerType.Freeze:
                     _sprite = new SmartSprite("../GFX/towerFreeze.png");
+                    _attackTimerRemaining = _attackTimerMax = GameProperties.TowerFreezeAttackTime;
+                    _towerRange = GameProperties.TowerFreezeRange;
                     break;
             }
 
@@ -51,10 +67,70 @@ namespace JamTemplate
 
         public void Update(TimeObject timeObject)
         {
+            if (_attackTimerRemaining > 0)
+            {
+                _attackTimerRemaining -= timeObject.ElapsedGameTime;
+            }
+            else
+            {
+                Prisoner target = _world.GetPrisonerNextTo(this.Position);
+                if (target != null)
+                {
+                    if (CheckRangeCondition(target))
+                    {
+                        Shoot(target);
+                    }
+                }
+            }
+        }
+
+        private void Shoot(Prisoner target)
+        {
+            _attackTimerRemaining = _attackTimerMax;
+            if (Type == TowerType.Melee)
+            {
+                target.TakeDamage(GameProperties.TowerMeleeAttackDamage);
+            }
+            else if (Type == TowerType.Normal)
+            {
+
+            }
+            else if (Type == TowerType.Splash)
+            {
+
+            }
+            else if (Type == TowerType.Freeze)
+            {
+
+            }
+            else
+            {
+                throw new Exception("Tower Type NONE!!!");
+            }
+        }
+
+
+        private bool CheckRangeCondition(Prisoner target)
+        {
+            Vector2i distance = this.Position - target.PositionInTiles;
+            float dist = distance.X * distance.X + distance.Y * distance.Y;
+
+            if (dist <= _towerRange * _towerRange)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        public Vector2f GetOnScreenPosition()
+        {
+            return GameProperties.TileSizeInPixel * new Vector2f(Position.X, Position.Y) - Camera.CameraPosition;
         }
 
         public void Draw(RenderWindow rw)
         {
+            _sprite.Position = GetOnScreenPosition();
             _sprite.Draw(rw);
         }
     }

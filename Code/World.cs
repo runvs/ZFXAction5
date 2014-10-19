@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Odbc;
 using JamUtilities;
 using JamUtilities.Particles;
 using JamUtilities.ScreenEffects;
@@ -108,7 +109,7 @@ namespace JamTemplate
 
                         if (selectedTower != TowerType.None)
                         {
-                            _towers.Add(new Tower(selectedTower, TowerBuilder.OriginTile.Position));
+                            _towers.Add(new Tower(selectedTower, TowerBuilder.OriginTile.Position, this));
                         }
 
                         TowerBuilder.HideBuildMenu();
@@ -183,6 +184,11 @@ namespace JamTemplate
                 tower.Draw(rw);
             }
 
+            foreach (var p in _prisonersList)
+            {
+                p.DrawHealthShape(rw);
+            }
+
             TowerBuilder.Draw(rw);
             SpecialAbilities.Draw(rw);
 
@@ -204,7 +210,7 @@ namespace JamTemplate
             Lives = GameProperties.PlayerInitialLives;
             Dead = false;
 
-            CarreerPoints = 10;
+            CarreerPoints = 0;
 
             SpecialAbilities.SetWorld(this);
 
@@ -217,7 +223,7 @@ namespace JamTemplate
             _prisonersList.Add(prisoner);
         }
 
-        internal void FreezePrisoners()
+        public void FreezePrisoners()
         {
             foreach (var p in _prisonersList)
             {
@@ -225,12 +231,32 @@ namespace JamTemplate
             }
         }
 
-        internal void DamageAllPrisoners()
+        public void DamageAllPrisoners()
         {
             foreach (var p in _prisonersList)
             {
                 p.TakeDamage(p.Health * GameProperties.SpecialAbilitiesDamageFactor);
             }
+        }
+
+        public Prisoner GetPrisonerNextTo(Vector2i pos)
+        {
+            Prisoner retVal = null;
+
+            float mindist = float.MaxValue;
+
+            foreach (var p in _prisonersList)
+            {
+                Vector2i distance = pos - p.PositionInTiles;
+                float dist = distance.X * distance.X + distance.Y * distance.Y;
+                if (dist <= mindist)
+                {
+                    retVal = p;
+                    mindist = dist;
+                }
+            }
+
+            return retVal;
         }
     }
 }
