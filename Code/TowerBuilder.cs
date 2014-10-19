@@ -1,7 +1,7 @@
-﻿using JamUtilities;
+﻿using System;
+using JamUtilities;
 using SFML.Graphics;
 using SFML.Window;
-using System;
 
 namespace JamTemplate
 {
@@ -9,11 +9,13 @@ namespace JamTemplate
     {
         public static bool IsBuildMenuShown { get; private set; }
         private static SmartSprite _sprite = new SmartSprite("../GFX/buildMenu.png");
+        public static Tile OriginTile { get; private set; }
 
         public static void ShowBuildMenu(Tile tile)
         {
             _sprite.Position = tile.GetOnScreenPosition();
             _sprite.Origin = new Vector2f(32, 32);
+            OriginTile = tile;
 
             IsBuildMenuShown = true;
         }
@@ -49,6 +51,7 @@ namespace JamTemplate
         public static void HideBuildMenu()
         {
             IsBuildMenuShown = false;
+            OriginTile = null;
         }
 
         public static void Draw(RenderWindow rw)

@@ -1,9 +1,9 @@
-﻿using JamUtilities;
+﻿using System.Collections.Generic;
+using JamUtilities;
 using JamUtilities.Particles;
 using JamUtilities.ScreenEffects;
 using SFML.Graphics;
 using SFML.Window;
-using System.Collections.Generic;
 using Mouse = SFML.Window.Mouse;
 
 // ReSharper disable once SuggestUseVarKeywordEvident
@@ -90,7 +90,7 @@ namespace JamTemplate
 
                         if (selectedTower != TowerType.None)
                         {
-                            _towers.Add(new Tower(selectedTower, tile.Position));
+                            _towers.Add(new Tower(selectedTower, TowerBuilder.OriginTile.Position));
                         }
 
                         TowerBuilder.HideBuildMenu();
