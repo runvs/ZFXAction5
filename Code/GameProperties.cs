@@ -139,5 +139,10 @@ namespace JamTemplate
         {
             get { return 1.9f; }
         }
+
+        public static float TowerFreezeFreezeTime
+        {
+            get { return 2.5f; }
+        }
     }
 }

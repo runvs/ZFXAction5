@@ -161,10 +161,10 @@ namespace JamTemplate
             rw.Draw(_healthShape);
         }
 
-        internal void Freeze()
+        internal void Freeze(float time)
         {
-            FreezeinTimeRemaining = GameProperties.SpecialAbilitiesFreezeTime;
-            _sprite.Flash(Color.Blue, GameProperties.SpecialAbilitiesFreezeTime);
+            FreezeinTimeRemaining = time;
+            _sprite.Flash(Color.Blue, time);
         }
     }
 }

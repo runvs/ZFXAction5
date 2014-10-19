@@ -221,6 +221,10 @@ namespace JamTemplate
                     {
                         DoSplashDamage(p._target, p);
                     }
+                    else if (p._tower.Type == TowerType.Freeze)
+                    {
+                        p._target.Freeze(GameProperties.TowerFreezeFreezeTime);
+                    }
                 }
             }
             _projectiles = newProjectileList;
@@ -329,7 +333,7 @@ namespace JamTemplate
         {
             foreach (var p in _prisonersList)
             {
-                p.Freeze();
+                p.Freeze(GameProperties.SpecialAbilitiesFreezeTime);
             }
         }
 
